@@ -1,0 +1,98 @@
+<!--
+  certificate.template.modern.html — template sertifikat alternatif (A4 landscape, full-bleed)
+  =========================================================================================
+  Layout: panel navy di kiri (identitas institusi) + area putih di kanan (peserta & skor).
+  Dipakai lewat content.json:
+
+      "course": {
+        "certificate": {
+          "template": "certificates/sertifikat-modern.html",
+          "pageSize": "A4 landscape",
+          "printPadding": "0"
+        }
+      }
+
+  ATURAN (dicek otomatis oleh build + verification gate):
+  • Ini menggantikan ISI dari <div id="certificatePrintArea">.
+  • {{token}} = nilai yang diisi saat BUILD. Token tak dikenal -> build GAGAL.
+  • 5 id ini WAJIB ada (diisi engine saat cetak): certRecipientName, certRecipientNIP,
+    certScoreVal, certDateVal, certNumberLabel.
+  • printPadding "0" = full-bleed. Semua jarak diatur di dalam template ini (satuan mm).
+  • Halaman dikunci ke ukuran pageSize; konten yang melebihi halaman akan TERPOTONG
+    (bukan jadi halaman kedua). Jaga tinggi total <= 210mm.
+  • Warna latar tercetak karena shell memaksa print-color-adjust: exact.
+  • Background putih + semua elemen lain disembunyikan otomatis oleh @media print.
+  • Gambar/logo sebaiknya pakai data URI (data:image/png;base64,...) supaya tetap
+    single-file dan pasti ikut tercetak.
+-->
+<div style="width:100%;height:100%;display:flex;font-family:'Plus Jakarta Sans',Arial,Helvetica,sans-serif;color:#0F243E;background:#ffffff;overflow:hidden;box-sizing:border-box;">
+
+  <!-- ============ PANEL KIRI: identitas institusi ============ -->
+  <div style="width:92mm;height:100%;flex:0 0 92mm;box-sizing:border-box;padding:14mm 10mm;display:flex;flex-direction:column;justify-content:space-between;color:#ffffff;background:linear-gradient(160deg,{{warna_primary}} 0%,#123A63 55%,#0B2540 100%);position:relative;">
+
+    <!-- watermark grid arsitektural -->
+    <div style="position:absolute;inset:0;opacity:.14;background-image:radial-gradient(#ffffff 1px,transparent 1px);background-size:5mm 5mm;pointer-events:none;"></div>
+
+    <div style="position:relative;">
+      <div style="width:14mm;height:1.2mm;background:{{warna_accent}};margin-bottom:6mm;"></div>
+      <div style="font-size:19pt;font-weight:800;line-height:1.15;letter-spacing:-.4pt;">{{organisasi}}</div>
+      <div style="font-size:8pt;font-weight:500;opacity:.82;margin-top:2.5mm;line-height:1.5;">{{divisi}}</div>
+    </div>
+
+    <div style="position:relative;">
+      <div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11pt;font-weight:700;color:{{warna_accent}};letter-spacing:.5pt;">{{kode_kursus}}</div>
+      <div style="font-size:7.5pt;opacity:.75;margin-top:1.5mm;">{{label_footer}}</div>
+    </div>
+  </div>
+
+  <!-- ============ AREA KANAN: peserta, judul, skor, tanda tangan ============ -->
+  <div style="flex:1 1 auto;height:100%;box-sizing:border-box;padding:16mm 16mm 14mm 14mm;display:flex;flex-direction:column;justify-content:space-between;position:relative;">
+
+    <!-- nomor registrasi -->
+    <div style="display:flex;justify-content:flex-end;">
+      <div id="certNumberLabel" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:7.5pt;color:#64748B;border:0.3mm solid #E2E8F0;border-radius:2mm;padding:1.4mm 3mm;">No. Reg: —</div>
+    </div>
+
+    <!-- judul + penerima -->
+    <div style="margin-top:2mm;">
+      <div style="font-size:8pt;font-weight:700;letter-spacing:2.4pt;color:{{warna_primary}};text-transform:uppercase;">{{label_kicker}}</div>
+
+      <div style="font-size:8.5pt;color:#64748B;margin-top:7mm;">{{label_presented_to}}</div>
+      <div id="certRecipientName" style="font-size:30pt;font-weight:800;line-height:1.1;letter-spacing:-.6pt;color:#0F243E;margin-top:1.5mm;">Peserta Pelatihan</div>
+      <div id="certRecipientNIP" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:8pt;color:#64748B;margin-top:2mm;">NIP: - • {{organisasi}}</div>
+
+      <div style="width:26mm;height:.8mm;background:{{warna_accent}};margin:7mm 0;"></div>
+
+      <div style="font-size:9pt;color:#475569;line-height:1.6;max-width:120mm;">{{label_pass_note}} {{judul_sertifikat}}:</div>
+      <div style="font-size:13pt;font-weight:800;color:{{warna_primary}};margin-top:2mm;line-height:1.3;">{{judul_kursus}}</div>
+    </div>
+
+    <!-- skor + tanggal + tanda tangan -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;">
+
+      <div style="display:flex;flex-direction:column;gap:3mm;">
+        <div style="display:inline-flex;align-items:center;gap:2.5mm;border:0.3mm solid {{warna_primary}}33;background:{{warna_primary}}0F;border-radius:20mm;padding:2mm 5mm;width:fit-content;">
+          <span style="font-size:8pt;font-weight:700;color:{{warna_primary}};">{{label_score}}</span>
+          <span id="certScoreVal" style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13pt;font-weight:700;color:{{warna_primary}};">0</span>
+          <span style="font-size:8pt;font-weight:700;color:{{warna_primary}};">%</span>
+          <span style="font-size:7.5pt;color:#64748B;">• {{label_pass_threshold}}</span>
+        </div>
+
+        <div style="font-size:7.5pt;color:#64748B;">
+          {{label_date}} <span id="certDateVal" style="font-family:'JetBrains Mono',ui-monospace,monospace;color:#334155;">—</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;min-width:52mm;">
+        <div style="height:14mm;"></div>
+        <div style="border-top:0.3mm solid #94A3B8;padding-top:2mm;">
+          <div style="font-size:9.5pt;font-weight:800;color:#0F243E;">{{penandatangan}}</div>
+          <div style="font-size:7.5pt;color:#64748B;margin-top:0.8mm;">{{organisasi}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- aksen sudut -->
+    <div style="position:absolute;right:0;bottom:0;width:34mm;height:2mm;background:{{warna_primary}};"></div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<!--
+  certificate.template.example.html — custom print-to-PDF certificate template
+  ============================================================================
+  Referenced from content.json:
+
+      "course": {
+        "certificate": {
+          "template": "certificates/portrait-award.html",
+          "pageSize": "A4 portrait",
+          "printPadding": "10mm"
+        }
+      }
+
+  HOW IT WORKS
+  ------------
+  • This file replaces the INNER markup of <div id="certificatePrintArea">.
+  • {{token}} values are substituted at BUILD time by scripts/build_module.py.
+    Available tokens: judul_kursus, kode_kursus, organisasi, divisi,
+    penandatangan, judul_sertifikat, prefix_reg, passing_score, label_kicker,
+    label_presented_to, label_pass_note, label_score, label_pass_threshold,
+    label_date, label_footer, warna_primary, warna_secondary, warna_accent.
+    An unknown token fails the build instead of shipping a broken certificate.
+  • Runtime values are NOT tokens. Your template MUST contain these five ids
+    (tools/verify_module.py rejects a build that drops them):
+      #certRecipientName   #certRecipientNIP   #certScoreVal
+      #certDateVal         #certNumberLabel
+  • Tailwind classes work because the shell already loads Tailwind. Inline
+    `style="..."` also works and is the safest choice for exotic layouts.
+  • Printing is driven by the shell @media print rules: only
+    #certificatePrintArea is visible, sized to course.certificate.pageSize.
+    Use `no-print` on anything that must never reach the PDF.
+  • Set printPadding to "0" for a full-bleed design and paint your own borders.
+-->
+<div class="w-full h-full flex flex-col items-center justify-between bg-white text-slate-800 relative"
+     style="font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;">
+
+  <!-- Outer hairline frame (full-bleed look with printPadding: 0) -->
+  <div class="absolute inset-0 pointer-events-none border-[3px] border-double"
+       style="border-color: {{warna_primary}};"></div>
+
+  <header class="w-full flex items-start justify-between pt-8 px-10">
+    <div class="text-left">
+      <p class="text-xl font-black tracking-wide" style="color: {{warna_primary}};">{{organisasi}}</p>
+      <p class="text-[11px] text-slate-500">{{divisi}}</p>
+    </div>
+    <div class="text-right">
+      <p class="text-[11px] font-mono text-slate-500" id="certNumberLabel">No. Reg: {{prefix_reg}}/—/—</p>
+      <p class="text-[11px] font-mono text-slate-400">{{kode_kursus}}</p>
+    </div>
+  </header>
+
+  <section class="text-center px-10 my-auto">
+    <p class="text-[11px] font-semibold tracking-[0.3em] uppercase text-slate-400">{{label_kicker}}</p>
+
+    <p class="text-[11px] text-slate-500 mt-6">{{label_presented_to}}</p>
+    <h1 class="text-4xl font-black text-slate-900 mt-2 leading-tight" id="certRecipientName">Peserta Pelatihan</h1>
+    <p class="text-xs font-mono text-slate-500 mt-2" id="certRecipientNIP">NIP: - • {{organisasi}}</p>
+    <div class="w-24 h-px mx-auto my-6" style="background: {{warna_accent}};"></div>
+
+    <p class="text-xs text-slate-600 max-w-2xl mx-auto leading-relaxed">
+      {{label_pass_note}} {{judul_sertifikat}}:
+    </p>
+    <p class="text-lg font-extrabold mt-2" style="color: {{warna_primary}};">{{judul_kursus}}</p>
+
+    <div class="mt-8 inline-flex items-center gap-2 px-5 py-2 rounded-full border text-xs font-bold"
+         style="border-color: {{warna_secondary}}; color: {{warna_primary}};">
+      <span>{{label_score}}</span>
+      <span class="font-mono text-base" id="certScoreVal">0</span>
+      <span>%</span>
+      <span class="text-slate-400 font-normal">•</span>
+      <span class="font-normal text-slate-600">{{label_pass_threshold}}</span>
+    </div>
+  </section>
+
+  <footer class="w-full flex items-end justify-between px-10 pb-8">
+    <div class="text-left text-[11px] text-slate-600">
+      <p class="font-bold">{{label_date}}</p>
+      <p class="font-mono" id="certDateVal">—</p>
+      <p class="text-[10px] text-slate-400 mt-1">{{label_footer}}</p>
+    </div>
+    <div class="text-center text-[11px]">
+      <div class="w-40 h-14"></div>
+      <div class="w-40 h-px bg-slate-400 mb-1"></div>
+      <p class="font-bold text-slate-800">{{penandatangan}}</p>
+      <p class="text-[10px] text-slate-500">{{organisasi}}</p>
+    </div>
+  </footer>
+</div>

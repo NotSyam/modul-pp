@@ -1,0 +1,2523 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://modul-pp/schemas/content.json",
+  "title": "E-Learning Module Content",
+  "description": "Schema for the content.json that drives an e-learning module built from the shell template. Each module = course meta + brand + units (sidebar outline) + slides (one slide object per unit, with type-specific data) + glossary + narration + optional cheat-sheet/hint/resources. For per-type field docs and examples see references/slide_types.md.",
+  "type": "object",
+  "required": [
+    "course",
+    "units",
+    "slides"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "course": {
+      "type": "object",
+      "required": [
+        "code",
+        "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Course code shown in header badge. E.g., 'PP/SOP/C1-050 REV-3'."
+        },
+        "title": {
+          "type": "string",
+          "description": "Course title shown in header #courseTitle."
+        },
+        "effectiveDate": {
+          "type": "string",
+          "description": "Effective date label, e.g., 'Berlaku: 31 Des 2024'."
+        },
+        "logo": {
+          "type": "string",
+          "description": "Path to logo image relative to module root, e.g., 'assets/logo.png'."
+        },
+        "logoAlt": {
+          "type": "string"
+        },
+        "totalUnits": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "passingScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 80
+        },
+        "totalQuestions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "devMode": {
+          "type": "boolean",
+          "default": false
+        },
+        "bypassQuiz": {
+          "type": "boolean",
+          "default": false,
+          "description": "Bypass quiz requirement for testing certificate printing directly without completing the quiz."
+        },
+        "defaultDark": {
+          "type": "boolean",
+          "default": true
+        },
+        "enableGatingTimer": {
+          "type": "boolean",
+          "default": true
+        },
+        "gatingSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 10,
+          "description": "Duration in seconds each slide is locked before user can navigate forward"
+        },
+        "maxQuizAttempts": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 5,
+          "description": "Maximum number of quiz attempts allowed before permanent lock"
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Optional Google Apps Script webhook URL to sync quiz results and analytics to Google Sheets"
+        },
+        "resourcesDesc": {
+          "type": "string",
+          "description": "Description text under the Lampiran/Resources sidebar tab (build-time placeholder __COURSE_RESOURCES_DESC__)."
+        },
+        "glossarySearchPlaceholder": {
+          "type": "string",
+          "default": "Cari istilah...",
+          "description": "Placeholder for the Terminologi search box."
+        },
+        "certificate": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Print-to-PDF certificate customisation. Runtime values (recipient name/NIP, score, date, registration number) are always injected by the engine; everything here controls layout, language and page geometry.",
+          "properties": {
+            "template": {
+              "type": "string",
+              "description": "Path (relative to content.json) to a custom HTML template that replaces the inner markup of #certificatePrintArea. Supports {{token}} build-time tokens; must expose the DOM ids certRecipientName, certRecipientNIP, certScoreVal, certDateVal, certNumberLabel."
+            },
+            "pageSize": {
+              "type": "string",
+              "enum": [
+                "A4 landscape",
+                "A4 portrait",
+                "Letter landscape",
+                "Letter portrait"
+              ],
+              "default": "A4 landscape",
+              "description": "CSS @page size used by the print stylesheet."
+            },
+            "pageWidthMm": {
+              "type": "number",
+              "minimum": 50,
+              "description": "Override the printed area width in mm (defaults to the pageSize width)."
+            },
+            "pageHeightMm": {
+              "type": "number",
+              "minimum": 50,
+              "description": "Override the printed area height in mm (defaults to the pageSize height)."
+            },
+            "printPadding": {
+              "type": "string",
+              "default": "15mm",
+              "description": "Padding around the printed certificate area, e.g. '15mm' or '0' for edge-to-edge designs."
+            },
+            "dateLocale": {
+              "type": "string",
+              "default": "id-ID",
+              "description": "BCP-47 locale used by toLocaleDateString() for the graduation date."
+            },
+            "regNumberFormat": {
+              "type": "string",
+              "default": "{prefix}/{year}/{seq}",
+              "description": "Registration-number pattern. Supported fields: {prefix} (brand certRegPrefix), {year}, {seq} (deterministic per participant+course+year)."
+            },
+            "regSequenceDigits": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 10,
+              "default": 4,
+              "description": "Zero-padded width of the {seq} registration field."
+            },
+            "labels": {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Overridable built-in certificate labels (use English or any other language).",
+              "properties": {
+                "kicker": {
+                  "type": "string"
+                },
+                "presentedTo": {
+                  "type": "string"
+                },
+                "passNote": {
+                  "type": "string",
+                  "description": "Safe HTML allowed. Rendered before the brand certTitle."
+                },
+                "scoreLabel": {
+                  "type": "string"
+                },
+                "passThresholdNote": {
+                  "type": "string",
+                  "description": "Use {passingScore} to interpolate the course passing score."
+                },
+                "dateLabel": {
+                  "type": "string"
+                },
+                "footerNote": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Brand profile. Either `preset` (resolved from brand.profiles.json at build time) OR inline fields. Inline fields override preset fields.",
+      "properties": {
+        "preset": {
+          "type": "string",
+          "enum": [
+            "ptpp",
+            "corporate",
+            "education",
+            "tech-startup",
+            "custom"
+          ]
+        },
+        "orgName": {
+          "type": "string"
+        },
+        "orgDivision": {
+          "type": "string"
+        },
+        "signatory": {
+          "type": "string"
+        },
+        "certTitle": {
+          "type": "string",
+          "default": "Standard Operating Procedure"
+        },
+        "certRegPrefix": {
+          "type": "string"
+        },
+        "primary": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "primaryHover": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "secondary": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "accent": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "iceBg": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "darkBg": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "darkSurface": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "darkBorder": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        },
+        "darkSubtle": {
+          "type": "string",
+          "pattern": "^[0-9A-Fa-f]{6}$"
+        }
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/unit"
+      }
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/slide"
+      }
+    },
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "istilah",
+          "pengertian"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "istilah": {
+            "type": "string"
+          },
+          "kategori": {
+            "type": "string"
+          },
+          "badgeColor": {
+            "type": "string"
+          },
+          "pengertian": {
+            "type": "string"
+          },
+          "catatan": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "narration": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "tenggatCheatSheet": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "value",
+          "label"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "wide": {
+            "type": "boolean",
+            "description": "When true the cheat-sheet card spans both grid columns (reference module renders its final card as sm:col-span-2)."
+          }
+        }
+      }
+    },
+    "hintTips": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "desc"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "icon": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "icon": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "unit": {
+      "type": "object",
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "slide": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/cover"
+        },
+        {
+          "$ref": "#/definitions/cardList"
+        },
+        {
+          "$ref": "#/definitions/treeCanvas"
+        },
+        {
+          "$ref": "#/definitions/scenarioPicker"
+        },
+        {
+          "$ref": "#/definitions/tabbedAccordion"
+        },
+        {
+          "$ref": "#/definitions/verificationMatrix"
+        },
+        {
+          "$ref": "#/definitions/twoCardAccordion"
+        },
+        {
+          "$ref": "#/definitions/docTabs"
+        },
+        {
+          "$ref": "#/definitions/kpiDashboard"
+        },
+        {
+          "$ref": "#/definitions/riskCards"
+        },
+        {
+          "$ref": "#/definitions/quiz"
+        },
+        {
+          "$ref": "#/definitions/summaryCertificate"
+        },
+        {
+          "$ref": "#/definitions/imageGallery"
+        },
+        {
+          "$ref": "#/definitions/videoEmbed"
+        },
+        {
+          "$ref": "#/definitions/calloutBox"
+        },
+        {
+          "$ref": "#/definitions/stepByStep"
+        },
+        {
+          "$ref": "#/definitions/comparisonTable"
+        },
+        {
+          "$ref": "#/definitions/faqAccordion"
+        },
+        {
+          "$ref": "#/definitions/hotspotImage"
+        },
+        {
+          "$ref": "#/definitions/branchingScenario"
+        },
+        {
+          "$ref": "#/definitions/dragDropSet"
+        }
+      ]
+    },
+    "commonSlideFields": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        }
+      }
+    },
+    "iconCard": {
+      "type": "object",
+      "required": [
+        "title",
+        "desc"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string",
+          "description": "Optional HTML body appended after desc."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cover": {
+      "type": "object",
+      "required": [
+        "type",
+        "heroTitle"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "cover"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "heroTitle": {
+          "type": "string"
+        },
+        "heroLead": {
+          "type": "string"
+        },
+        "heroMeta": {
+          "type": "string",
+          "description": "Small mono text shown above hero title, e.g., 'PP/SOP/C1-050 · REV-3 · Berlaku 31 Des 2024'."
+        },
+        "ctaLabel": {
+          "type": "string",
+          "default": "Mulai Pembelajaran"
+        },
+        "ctaIcon": {
+          "type": "string",
+          "default": "play_arrow"
+        },
+        "skipTo": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Slide index the CTA button jumps to. Default 1."
+        },
+        "reasons": {
+          "type": "array",
+          "description": "Grid of icon cards (typically 4). Shown below the hero.",
+          "items": {
+            "$ref": "#/definitions/iconCard"
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "cardList": {
+      "type": "object",
+      "required": [
+        "type",
+        "cards"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "cardList"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/iconCard"
+          }
+        },
+        "columns": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ],
+          "default": 1
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "treeCanvas": {
+      "type": "object",
+      "required": [
+        "type",
+        "swimlaneData"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "treeCanvas"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "swimlaneData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "section",
+              "items"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "section": {
+                "type": "string"
+              },
+              "sectionIcon": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "step",
+                    "title"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Stable id referenced by flowCard keys and hotspot lookups."
+                    },
+                    "step": {
+                      "type": "string",
+                      "description": "Numeric or label, e.g., '5.1' or 'KEPUTUSAN'."
+                    },
+                    "actor": {
+                      "type": "string"
+                    },
+                    "actorRole": {
+                      "type": "string"
+                    },
+                    "actorColor": {
+                      "type": "string",
+                      "description": "Tailwind class string for the actor badge."
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "inputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "outputs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "clauses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "HTML allowed."
+                    },
+                    "isDecision": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "flowCard": {
+          "type": "object",
+          "description": "Map of stepId -> { t (title), out? (output label), branches? ([[condition, action], ...]) }.",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "t"
+            ],
+            "properties": {
+              "t": {
+                "type": "string"
+              },
+              "out": {
+                "type": "string"
+              },
+              "branches": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              }
+            }
+          }
+        },
+        "roleFilterOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "Semua"
+          ]
+        },
+        "phaseJumps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "scenarioPicker": {
+      "type": "object",
+      "required": [
+        "type",
+        "scenarios"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "scenarioPicker"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "infoBanner": {
+          "type": "string",
+          "description": "HTML allowed."
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/iconCard"
+          }
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "options"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "DOM-safe id used to wire verdict panel."
+              },
+              "label": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "label",
+                    "verdict"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "verdict": {
+                      "type": "string",
+                      "description": "HTML allowed."
+                    },
+                    "tone": {
+                      "type": "string",
+                      "enum": [
+                        "positive",
+                        "negative",
+                        "neutral"
+                      ],
+                      "default": "neutral"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "tabbedAccordion": {
+      "type": "object",
+      "required": [
+        "type",
+        "tabs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "tabbedAccordion"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "tabs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "t"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "t": {
+                          "type": "string",
+                          "description": "Item title."
+                        },
+                        "d": {
+                          "type": "string",
+                          "description": "Item description."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "checklist": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "verificationMatrix": {
+      "type": "object",
+      "required": [
+        "type",
+        "tabs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "verificationMatrix"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "legend": {
+          "type": "string",
+          "description": "Text of the sky-blue legend pill shown on the verification panels. Defaults to 'PIC Khusus'."
+        },
+        "defaultPic": {
+          "type": "string",
+          "description": "Fallback verifier label used when a row does not set its own PIC."
+        },
+        "tabs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "label",
+              "items"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "defaultPic": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "doc"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "doc": {
+                      "type": "string"
+                    },
+                    "note": {
+                      "type": "string"
+                    },
+                    "pic": {
+                      "type": "string"
+                    },
+                    "noInfo": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "twoCardAccordion": {
+      "type": "object",
+      "required": [
+        "type",
+        "cards"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "twoCardAccordion"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "infoBanner": {
+          "type": "string"
+        },
+        "infoBannerIcon": {
+          "type": "string",
+          "default": "info"
+        },
+        "cards": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "desc"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "icon": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "miniCheck": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "docTabs": {
+      "type": "object",
+      "required": [
+        "type",
+        "tabs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "docTabs"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "tabs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "label",
+              "items"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "itemType": {
+                "type": "string",
+                "enum": [
+                  "list",
+                  "records",
+                  "attachments"
+                ],
+                "default": "list"
+              },
+              "chip": {
+                "type": "string",
+                "description": "Prefix for this tab's record-number chips, e.g. '8.' renders 8.01, 8.02. Defaults to a zero-padded index."
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "doc"
+                      ],
+                      "properties": {
+                        "doc": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "kpiDashboard": {
+      "type": "object",
+      "required": [
+        "type",
+        "kpis"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "kpiDashboard"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "kpis": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "value"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "auditChecklist": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "riskCards": {
+      "type": "object",
+      "required": [
+        "type",
+        "risks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "riskCards"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "clauseLabel": {
+          "type": "string",
+          "description": "Override for the clause chip prefix. Defaults to 'Klausul'."
+        },
+        "criticalLabel": {
+          "type": "string",
+          "description": "Override for the amber critical-process pill. Defaults to 'Proses Kritis'."
+        },
+        "riskLabel": {
+          "type": "string",
+          "description": "Override for the risk panel heading. Defaults to 'Potensi Risiko Lapangan:'."
+        },
+        "mitigationLabel": {
+          "type": "string",
+          "description": "Override for the mitigation panel heading. Defaults to 'Mitigasi Preventif SOP:'."
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "no",
+              "proc",
+              "risk",
+              "mit"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "no": {
+                "type": "string",
+                "description": "Clause/section number, e.g., '5.11'."
+              },
+              "proc": {
+                "type": "string",
+                "description": "Process description."
+              },
+              "risk": {
+                "type": "string",
+                "description": "Risk description."
+              },
+              "mit": {
+                "type": "string",
+                "description": "Mitigation."
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "quiz": {
+      "type": "object",
+      "required": [
+        "type",
+        "questions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "quiz"
+        },
+        "title": {
+          "type": "string",
+          "default": "Uji Pemahaman"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/quizQuestion"
+          }
+        },
+        "webhookUrl": {
+          "type": "string",
+          "description": "Optional Google Apps Script webhook URL specifically for this quiz"
+        },
+        "askParticipantInfo": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to render participant identity fields (name, NIP, jabatan, divisi) before or during quiz"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "quizQuestion": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "options",
+            "correctIndex",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "mcq"
+            },
+            "question": {
+              "type": "string"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string"
+              }
+            },
+            "correctIndex": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "correctBool",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "trueFalse"
+            },
+            "question": {
+              "type": "string"
+            },
+            "correctBool": {
+              "type": "boolean"
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "acceptedAnswers",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "fillIn"
+            },
+            "question": {
+              "type": "string"
+            },
+            "acceptedAnswers": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              },
+              "description": "Any of these (case-insensitive, trimmed) is accepted."
+            },
+            "placeholder": {
+              "type": "string"
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "options",
+            "correctIndexes",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "multipleResponse"
+            },
+            "question": {
+              "type": "string"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string"
+              }
+            },
+            "correctIndexes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "description": "Every correct option index. Graded as an exact set: all of them, no extras."
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "items",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "ordering"
+            },
+            "question": {
+              "type": "string"
+            },
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string"
+              },
+              "description": "Steps listed in the CORRECT order. The engine shuffles them for display."
+            },
+            "correctOrder": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "description": "Optional explicit permutation of item indices; omit when `items` is already correct."
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "pairs",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "matching"
+            },
+            "question": {
+              "type": "string"
+            },
+            "pairs": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "required": [
+                  "left",
+                  "right"
+                ],
+                "properties": {
+                  "left": {
+                    "type": "string"
+                  },
+                  "right": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Each entry is a CORRECT left→right pair. The right column is shuffled for display."
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "question",
+            "answer",
+            "explanation"
+          ],
+          "properties": {
+            "id": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "type": {
+              "const": "numeric"
+            },
+            "question": {
+              "type": "string"
+            },
+            "answer": {
+              "type": "number",
+              "description": "The numeric answer."
+            },
+            "tolerance": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Absolute tolerance accepted around `answer`. Omit for an exact match."
+            },
+            "unit": {
+              "type": "string",
+              "description": "Unit label shown after the input, e.g. 'hari' or '%'."
+            },
+            "placeholder": {
+              "type": "string"
+            },
+            "explanation": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "summaryCertificate": {
+      "type": "object",
+      "required": [
+        "type",
+        "takeaways"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "summaryCertificate"
+        },
+        "title": {
+          "type": "string",
+          "default": "Penutup & Sertifikasi"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "heroTitle": {
+          "type": "string",
+          "description": "Shown on the score hero card."
+        },
+        "takeaways": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/iconCard"
+          }
+        },
+        "certificate": {
+          "type": "object",
+          "properties": {
+            "brandName": {
+              "type": "string"
+            },
+            "regPrefix": {
+              "type": "string"
+            },
+            "signatory": {
+              "type": "string"
+            },
+            "signatoryRole": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string",
+              "default": "Standard Operating Procedure"
+            }
+          }
+        },
+        "failMessage": {
+          "type": "string",
+          "description": "Shown when user hasn't passed the quiz yet."
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "imageGallery": {
+      "type": "object",
+      "required": [
+        "type",
+        "images"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "imageGallery"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "src",
+              "alt"
+            ],
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "alt": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "layout": {
+          "type": "string",
+          "enum": [
+            "grid",
+            "carousel"
+          ],
+          "default": "grid"
+        },
+        "columns": {
+          "type": "integer",
+          "enum": [
+            2,
+            3,
+            4
+          ],
+          "default": 3
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "videoEmbed": {
+      "type": "object",
+      "required": [
+        "type",
+        "src",
+        "title"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "videoEmbed"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "src": {
+          "type": "string",
+          "description": "YouTube/Vimeo URL or direct mp4 path."
+        },
+        "provider": {
+          "type": "string",
+          "enum": [
+            "youtube",
+            "vimeo",
+            "file"
+          ],
+          "default": "file"
+        },
+        "poster": {
+          "type": "string",
+          "description": "Thumbnail URL."
+        },
+        "durationLabel": {
+          "type": "string"
+        },
+        "aspectRatio": {
+          "type": "string",
+          "enum": [
+            "16:9",
+            "4:3",
+            "1:1",
+            "9:16"
+          ],
+          "default": "16:9"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "calloutBox": {
+      "type": "object",
+      "required": [
+        "type",
+        "title",
+        "body"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "calloutBox"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "variant": {
+          "type": "string",
+          "enum": [
+            "info",
+            "warning",
+            "success",
+            "danger"
+          ],
+          "default": "info"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Material Symbols name; defaults to variant (info/warning/success/danger)."
+        },
+        "body": {
+          "type": "string",
+          "description": "HTML allowed."
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "stepByStep": {
+      "type": "object",
+      "required": [
+        "type",
+        "steps"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "stepByStep"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "title"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "number": {
+                "type": "string",
+                "description": "Auto-generated as index if absent."
+              },
+              "title": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "connector": {
+          "type": "string",
+          "enum": [
+            "arrow",
+            "line",
+            "none"
+          ],
+          "default": "line"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "comparisonTable": {
+      "type": "object",
+      "required": [
+        "type",
+        "columns",
+        "rows"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "comparisonTable"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "cells"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Optional row header."
+              },
+              "cells": {
+                "type": "object",
+                "description": "Map of columnKey -> cell content (HTML allowed)."
+              }
+            }
+          }
+        },
+        "highlightColumn": {
+          "type": "string",
+          "description": "Column key to highlight."
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "faqAccordion": {
+      "type": "object",
+      "required": [
+        "type",
+        "items"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "faqAccordion"
+        },
+        "title": {
+          "type": "string",
+          "default": "FAQ"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "q",
+              "a"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "q": {
+                "type": "string"
+              },
+              "a": {
+                "type": "string",
+                "description": "HTML allowed."
+              },
+              "icon": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        }
+      }
+    },
+    "checkpointBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question"
+      ],
+      "description": "Optional formative practice question rendered below the slide content. It never affects the score, the attempt counter or the webhook; answering it correctly just releases the slide gate early. See references/interactivity_patterns.md.",
+      "properties": {
+        "question": {
+          "$ref": "#/definitions/quizQuestion"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Panel heading, e.g. 'Cek pemahaman' or 'Sebelum lanjut'."
+        },
+        "successNote": {
+          "type": "string"
+        },
+        "wrongNote": {
+          "type": "string"
+        },
+        "allowRetry": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "hotspotImage": {
+      "type": "object",
+      "required": [
+        "type",
+        "src",
+        "alt",
+        "hotspots"
+      ],
+      "additionalProperties": false,
+      "description": "Image with clickable hotspots: labeled graphic (explore) or a locate-the-target exercise (find). Always formative — never scored.",
+      "properties": {
+        "type": {
+          "const": "hotspotImage"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        },
+        "src": {
+          "type": "string",
+          "description": "Image path relative to the module, or a data: URI to keep the module single-file."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Required alt text; the image carries the teaching content."
+        },
+        "caption": {
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "explore",
+            "find"
+          ],
+          "default": "explore",
+          "description": "explore = every hotspot informs; find = locate the `correct` hotspots, decoys are traps."
+        },
+        "foundLabel": {
+          "type": "string",
+          "description": "Progress label, e.g. 'Titik ditemukan'."
+        },
+        "completeNote": {
+          "type": "string"
+        },
+        "wrongNote": {
+          "type": "string",
+          "description": "find mode: shown when the learner clicks a decoy."
+        },
+        "hotspots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "x",
+              "y"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": [
+                  "string",
+                  "integer"
+                ]
+              },
+              "x": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Horizontal position as a PERCENTAGE of the image width (0 = left edge)."
+              },
+              "y": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Vertical position as a PERCENTAGE of the image height (0 = top edge)."
+              },
+              "label": {
+                "type": "string",
+                "description": "Short pin label, e.g. 'A' or '1'."
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string",
+                "description": "Safe HTML/Markdown allowed."
+              },
+              "note": {
+                "type": "string"
+              },
+              "correct": {
+                "type": "boolean",
+                "description": "find mode: true = a hotspot the learner must locate; false/absent = decoy."
+              }
+            }
+          }
+        }
+      }
+    },
+    "branchingScenario": {
+      "type": "object",
+      "required": [
+        "type",
+        "start",
+        "nodes"
+      ],
+      "additionalProperties": false,
+      "description": "Conversation / decision tree (TalkMaster-style). The learner walks from `start` through `choices`; terminal nodes are endings. Always formative — it never touches the score.",
+      "properties": {
+        "type": {
+          "const": "branchingScenario"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        },
+        "start": {
+          "type": "string",
+          "description": "Node id the scenario opens on."
+        },
+        "restartLabel": {
+          "type": "string",
+          "default": "Ulangi skenario"
+        },
+        "feedbackLabel": {
+          "type": "string",
+          "default": "Umpan balik"
+        },
+        "successNote": {
+          "type": "string"
+        },
+        "failureNote": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "body"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "actor": {
+                "type": "string",
+                "description": "Who is speaking, e.g. 'Atasan Langsung'."
+              },
+              "body": {
+                "type": "string",
+                "description": "The situation. Safe HTML/Markdown allowed."
+              },
+              "choices": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "description": "The option text the learner clicks."
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "Target node id. Omit on a terminal choice."
+                    },
+                    "feedback": {
+                      "type": "string",
+                      "description": "Shown on the next node as the consequence of this choice (Safe HTML allowed)."
+                    },
+                    "correct": {
+                      "type": "boolean",
+                      "description": "Marks the choice as the desirable one. Used for the debrief summary only — grading stays formative."
+                    }
+                  }
+                }
+              },
+              "ending": {
+                "type": "boolean",
+                "default": false
+              },
+              "correct": {
+                "type": "boolean",
+                "description": "Ending only: true = the desirable outcome."
+              },
+              "debrief": {
+                "type": "string",
+                "description": "Ending only: what to take away from this path."
+              }
+            }
+          }
+        }
+      }
+    },
+    "dragDropSet": {
+      "type": "object",
+      "required": [
+        "type",
+        "buckets",
+        "items"
+      ],
+      "additionalProperties": false,
+      "description": "Sort items into buckets. Click/tap to place (keyboard + touch) with pointer dragging as an enhancement. Always formative — checking shows feedback but never scores.",
+      "properties": {
+        "type": {
+          "const": "dragDropSet"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lead": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "narration": {
+          "type": "string"
+        },
+        "checkpoint": {
+          "$ref": "#/definitions/checkpointBlock"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Short how-to line, e.g. 'Klik item lalu klik kategori.'"
+        },
+        "checkLabel": {
+          "type": "string",
+          "default": "Periksa penempatan"
+        },
+        "resetLabel": {
+          "type": "string",
+          "default": "Acak ulang"
+        },
+        "successNote": {
+          "type": "string"
+        },
+        "partialNote": {
+          "type": "string"
+        },
+        "buckets": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "hint": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "bucket"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "bucket": {
+                "type": "string",
+                "description": "id of the bucket this item belongs to."
+              },
+              "note": {
+                "type": "string",
+                "description": "Shown after a correct placement / in the debrief."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

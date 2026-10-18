@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+download/
+*.log
+
+# Local build output (the committed demo is test_build.html)
+build/

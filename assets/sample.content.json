@@ -1,0 +1,1676 @@
+{
+  "course": {
+    "code": "AKN/HR/ONB-014 REV-1",
+    "title": "Program Orientasi Karyawan Baru",
+    "effectiveDate": "Berlaku: 1 Feb 2026",
+    "logo": "assets/logo.png",
+    "logoAlt": "Logo Perusahaan",
+    "totalUnits": 21,
+    "passingScore": 80,
+    "totalQuestions": 9,
+    "devMode": false,
+    "defaultDark": true,
+    "enableGatingTimer": true,
+    "gatingSeconds": 10,
+    "maxQuizAttempts": 5
+  },
+  "brand": {
+    "preset": "ptpp"
+  },
+  "units": [
+    {
+      "title": "0. Pembuka",
+      "subtitle": "Selamat datang di Program Orientasi",
+      "icon": "waving_hand",
+      "duration": "00:40",
+      "category": "Pendahuluan"
+    },
+    {
+      "title": "1. Manfaat Orientasi",
+      "subtitle": "Empat alasan program ini penting",
+      "icon": "school",
+      "duration": "01:30",
+      "category": "Konsep Dasar"
+    },
+    {
+      "title": "2. Peta Alur Onboarding",
+      "subtitle": "Diagram alur tiga fase dengan hotspot detail",
+      "icon": "account_tree",
+      "duration": "03:00",
+      "category": "Alur Proses"
+    },
+    {
+      "title": "3. Studi Kasus Akses",
+      "subtitle": "Pilih tindakan yang tepat untuk tiap skenario",
+      "icon": "psychology_alt",
+      "duration": "02:00",
+      "category": "Latihan"
+    },
+    {
+      "title": "4. Peran per Divisi",
+      "subtitle": "Tanggung jawab HR, Atasan, dan IT",
+      "icon": "groups",
+      "duration": "02:30",
+      "category": "Peran & Tanggung Jawab"
+    },
+    {
+      "title": "5. Matriks Verifikasi",
+      "subtitle": "Kelengkapan dokumen per tahap",
+      "icon": "fact_check",
+      "duration": "02:30",
+      "category": "Verifikasi"
+    },
+    {
+      "title": "6. Dua Jalur Karyawan",
+      "subtitle": "Karyawan tetap vs karyawan kontrak",
+      "icon": "compare_arrows",
+      "duration": "02:00",
+      "category": "Kebijakan"
+    },
+    {
+      "title": "7. Dokumen & Formulir",
+      "subtitle": "Daftar, catatan, dan lampiran berkas",
+      "icon": "folder_open",
+      "duration": "02:00",
+      "category": "Dokumen"
+    },
+    {
+      "title": "8. Indikator Keberhasilan",
+      "subtitle": "KPI onboarding dan checklist audit",
+      "icon": "monitoring",
+      "duration": "02:00",
+      "category": "Pengukuran"
+    },
+    {
+      "title": "9. Risiko & Mitigasi",
+      "subtitle": "Risiko umum dan cara menanganinya",
+      "icon": "warning",
+      "duration": "02:30",
+      "category": "Manajemen Risiko"
+    },
+    {
+      "title": "10. Langkah Hari Pertama",
+      "subtitle": "Enam langkah berurutan hari pertama",
+      "icon": "route",
+      "duration": "02:00",
+      "category": "Panduan Praktis"
+    },
+    {
+      "title": "11. Perbandingan Metode",
+      "subtitle": "Orientasi terpusat vs pendampingan mentor",
+      "icon": "table_chart",
+      "duration": "02:00",
+      "category": "Perbandingan"
+    },
+    {
+      "title": "12. Galeri Fasilitas",
+      "subtitle": "Titik penting di lokasi kerja",
+      "icon": "photo_library",
+      "duration": "01:30",
+      "category": "Orientasi Lokasi"
+    },
+    {
+      "title": "Denah Hari Pertama",
+      "icon": "pin_drop",
+      "duration": "01:00",
+      "category": "Orientasi"
+    },
+    {
+      "title": "Studi Kasus Berkas",
+      "icon": "alt_route",
+      "duration": "02:00",
+      "category": "Studi Kasus"
+    },
+    {
+      "title": "13. Video Pengenalan",
+      "subtitle": "Sambutan singkat tim kepemimpinan",
+      "icon": "play_circle",
+      "duration": "02:00",
+      "category": "Media"
+    },
+    {
+      "title": "14. Catatan Penting",
+      "subtitle": "Hal yang wajib diingat selama 90 hari",
+      "icon": "campaign",
+      "duration": "01:00",
+      "category": "Pengingat"
+    },
+    {
+      "title": "15. Pertanyaan Umum",
+      "subtitle": "FAQ seputar masa percobaan",
+      "icon": "help",
+      "duration": "02:00",
+      "category": "FAQ"
+    },
+    {
+      "title": "Sortir Berkas",
+      "icon": "category",
+      "duration": "02:00",
+      "category": "Latihan"
+    },
+    {
+      "title": "16. Uji Pemahaman",
+      "subtitle": "5 soal: MCQ, True/False, dan isian",
+      "icon": "quiz",
+      "duration": "04:00",
+      "category": "Uji Pemahaman"
+    },
+    {
+      "title": "17. Penutup & Sertifikat",
+      "subtitle": "Ringkasan dan cetak sertifikat",
+      "icon": "verified",
+      "duration": "01:00",
+      "category": "Penutup & Sertifikasi"
+    }
+  ],
+  "slides": [
+    {
+      "type": "cover",
+      "category": "Pendahuluan",
+      "narration": "Selamat datang di Program Orientasi Karyawan Baru PT Anugerah Karya Nusantara. Modul ini memandu Anda memahami alur onboarding selama sembilan puluh hari pertama, mulai dari kelengkapan berkas sampai penilaian masa percobaan. Tekan tombol Mulai Belajar untuk memulai.",
+      "title": "Program Orientasi Karyawan Baru",
+      "lead": "Panduan sembilan puluh hari pertama Anda di perusahaan.",
+      "heroTitle": "Selamat Bergabung di AKN",
+      "heroLead": "Modul orientasi ini menjelaskan alur, peran, dokumen, dan indikator keberhasilan masa percobaan Anda secara bertahap.",
+      "heroMeta": "AKN/HR/ONB-014 · REV-1 · Berlaku 1 Feb 2026",
+      "ctaLabel": "Mulai Belajar",
+      "ctaIcon": "play_arrow",
+      "skipTo": 1,
+      "reasons": [
+        {
+          "icon": "flag",
+          "title": "Tujuan Jelas",
+          "desc": "Setiap tahap punya target dan penanggung jawab yang tegas.",
+          "tags": [
+            "tujuan",
+            "target"
+          ]
+        },
+        {
+          "icon": "groups",
+          "title": "Peran Terdefinisi",
+          "desc": "HR, atasan langsung, dan IT bekerja dengan batas tugas masing-masing.",
+          "tags": [
+            "peran",
+            "kolaborasi"
+          ]
+        },
+        {
+          "icon": "fact_check",
+          "title": "Verifikasi Berkas",
+          "desc": "Kelengkapan dokumen diperiksa pada setiap akhir tahap.",
+          "tags": [
+            "dokumen"
+          ]
+        },
+        {
+          "icon": "trending_up",
+          "title": "Terukur",
+          "desc": "Keberhasilan dinilai lewat indikator yang dapat dihitung.",
+          "tags": [
+            "indikator"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "cardList",
+      "category": "Konsep Dasar",
+      "narration": "Ada empat alasan mengapa program orientasi ini dijalankan secara terstruktur. Pertama, mempercepat adaptasi. Kedua, memastikan kepatuhan administrasi. Ketiga, menyeragamkan pengalaman seluruh karyawan baru. Keempat, menyiapkan penilaian masa percobaan yang objektif.",
+      "title": "Empat Alasan Orientasi Terstruktur",
+      "lead": "Program ini bukan sekadar formalitas, melainkan bagian dari kepatuhan dan pengembangan karyawan.",
+      "columns": 1,
+      "cards": [
+        {
+          "icon": "bolt",
+          "title": "1. Mempercepat Adaptasi",
+          "desc": "Karyawan baru mengenal budaya kerja, alat, dan alur komunikasi sejak hari pertama sehingga waktu tunggu produktif menjadi lebih singkat.",
+          "tags": [
+            "adaptasi",
+            "produktivitas"
+          ]
+        },
+        {
+          "icon": "rule",
+          "title": "2. Kepatuhan Administrasi",
+          "desc": "Seluruh berkas ketenagakerjaan dilengkapi dan diverifikasi sebelum tenggat <strong>tujuh hari kerja</strong>.",
+          "tags": [
+            "kepatuhan",
+            "berkas"
+          ]
+        },
+        {
+          "icon": "handshake",
+          "title": "3. Pengalaman Seragam",
+          "desc": "Semua unit kerja memakai urutan langkah yang sama sehingga tidak ada karyawan yang tertinggal prosesnya.",
+          "tags": [
+            "standar",
+            "kesetaraan"
+          ]
+        },
+        {
+          "icon": "analytics",
+          "title": "4. Penilaian Objektif",
+          "desc": "Penilaian masa percobaan bersandar pada indikator yang sudah disepakati di awal, bukan pada kesan subjektif.",
+          "body": "Penilaian dilakukan pada hari ke-30, ke-60, dan ke-90.",
+          "tags": [
+            "evaluasi"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "treeCanvas",
+      "category": "Alur Proses",
+      "narration": "Berikut peta alur onboarding dalam tiga fase. Fase persiapan berjalan sebelum hari pertama. Fase integrasi berlangsung pada hari pertama sampai hari ketiga puluh. Fase evaluasi berlangsung sampai hari kesembilan puluh. Geser kanvas dan klik tiap node untuk melihat penanggung jawab, masukan, keluaran, dan ketentuannya.",
+      "title": "Peta Alur Onboarding",
+      "lead": "Geser horizontal, klik node untuk melihat penanggung jawab, masukan, keluaran, dan ketentuan tiap langkah.",
+      "swimlaneData": [
+        {
+          "section": "Fase 1: Persiapan",
+          "sectionIcon": "event_available",
+          "items": [
+            {
+              "id": "f1_kontrak",
+              "step": "1.1",
+              "actor": "HR",
+              "actorRole": "HR Onboarding Officer",
+              "actorColor": "bg-brand-primary text-white",
+              "title": "Penerbitan Penawaran Kerja",
+              "inputs": [
+                "Hasil seleksi akhir",
+                "Formulir permintaan tenaga kerja"
+              ],
+              "outputs": [
+                "Surat penawaran kerja",
+                "Jadwal hari pertama"
+              ],
+              "clauses": [
+                "1.1 Surat penawaran kerja diterbitkan maksimal <strong>tiga hari kerja</strong> setelah hasil seleksi disetujui.",
+                "1.1.a Salinan surat diarsipkan pada berkas kepegawaian digital."
+              ]
+            },
+            {
+              "id": "f1_berkas",
+              "step": "1.2",
+              "actor": "HR",
+              "actorRole": "HR Onboarding Officer",
+              "title": "Penerimaan dan Pemeriksaan Berkas",
+              "inputs": [
+                "Surat penawaran kerja"
+              ],
+              "outputs": [
+                "Berkas kepegawaian lengkap"
+              ],
+              "clauses": [
+                "1.2 Berkas wajib lengkap sebelum akun kerja dibuat.",
+                "1.2.a Kekurangan berkas dicatat pada daftar pantau dan ditindaklanjuti maksimal tujuh hari kerja."
+              ]
+            },
+            {
+              "id": "f1_akun",
+              "step": "1.3",
+              "actor": "IT",
+              "actorRole": "IT Support",
+              "actorColor": "bg-cyan-700 text-white",
+              "title": "Penyiapan Akun dan Perangkat",
+              "inputs": [
+                "Berkas kepegawaian lengkap"
+              ],
+              "outputs": [
+                "Akun surel",
+                "Akses aplikasi inti",
+                "Perangkat kerja"
+              ],
+              "clauses": [
+                "1.3 Akun dibuat dengan hak akses paling minimal sesuai kebutuhan jabatan."
+              ]
+            }
+          ]
+        },
+        {
+          "section": "Fase 2: Integrasi",
+          "sectionIcon": "diversity_3",
+          "items": [
+            {
+              "id": "f2_hari1",
+              "step": "2.1",
+              "actor": "HR",
+              "actorRole": "HR Onboarding Officer",
+              "title": "Sesi Sambutan Hari Pertama",
+              "inputs": [
+                "Jadwal hari pertama"
+              ],
+              "outputs": [
+                "Berita acara sambutan",
+                "Kartu identitas sementara"
+              ],
+              "clauses": [
+                "2.1 Sesi sambutan membahas kode etik, jam kerja, dan saluran pelaporan."
+              ]
+            },
+            {
+              "id": "f2_mentor",
+              "step": "2.2",
+              "actor": "MENTOR",
+              "actorRole": "Mentor Pendamping",
+              "actorColor": "bg-emerald-600 text-white",
+              "title": "Penunjukan Mentor dan Rencana 30 Hari",
+              "inputs": [
+                "Berita acara sambutan"
+              ],
+              "outputs": [
+                "Rencana belajar 30 hari"
+              ],
+              "clauses": [
+                "2.2 Mentor ditunjuk dari tim yang sama, bukan dari jalur atasan langsung."
+              ]
+            },
+            {
+              "id": "f2_decision_kelayakan",
+              "step": "KEPUTUSAN",
+              "actor": "ATASAN",
+              "actorRole": "Atasan Langsung",
+              "actorColor": "bg-amber-500 text-white",
+              "title": "Evaluasi Hari ke-30",
+              "isDecision": true,
+              "inputs": [
+                "Rencana belajar 30 hari",
+                "Catatan mentor"
+              ],
+              "outputs": [],
+              "clauses": [
+                "Apakah capaian hari ke-30 sudah memenuhi target yang disepakati?"
+              ]
+            }
+          ]
+        },
+        {
+          "section": "Fase 3: Evaluasi",
+          "sectionIcon": "task_alt",
+          "items": [
+            {
+              "id": "f3_60",
+              "step": "3.1",
+              "actor": "ATASAN",
+              "actorRole": "Atasan Langsung",
+              "title": "Umpan Balik Hari ke-60",
+              "inputs": [
+                "Hasil evaluasi hari ke-30"
+              ],
+              "outputs": [
+                "Catatan pengembangan"
+              ],
+              "clauses": [
+                "3.1 Umpan balik disampaikan tertulis dan dibahas dalam sesi tatap muka singkat."
+              ]
+            },
+            {
+              "id": "f3_90",
+              "step": "3.2",
+              "actor": "HR",
+              "actorRole": "HR Onboarding Officer",
+              "title": "Penilaian Akhir Masa Percobaan",
+              "inputs": [
+                "Catatan pengembangan",
+                "Hasil uji pemahaman"
+              ],
+              "outputs": [
+                "Keputusan masa percobaan",
+                "Sertifikat orientasi"
+              ],
+              "clauses": [
+                "3.2 Penilaian akhir disusun bersama atasan langsung dan diverifikasi oleh HR.",
+                "3.2.a Hasil penilaian disampaikan kepada karyawan maksimal <strong>lima hari kerja</strong> setelah hari ke-90."
+              ]
+            }
+          ]
+        }
+      ],
+      "flowCard": {
+        "f1_kontrak": {
+          "t": "Penerbitan Penawaran Kerja",
+          "out": "Surat penawaran kerja"
+        },
+        "f1_berkas": {
+          "t": "Pemeriksaan Berkas",
+          "out": "Berkas lengkap"
+        },
+        "f1_akun": {
+          "t": "Penyiapan Akun & Perangkat",
+          "out": "Akses siap pakai"
+        },
+        "f2_hari1": {
+          "t": "Sesi Sambutan Hari Pertama",
+          "out": "Berita acara sambutan"
+        },
+        "f2_mentor": {
+          "t": "Penunjukan Mentor",
+          "out": "Rencana belajar 30 hari"
+        },
+        "f2_decision_kelayakan": {
+          "t": "Evaluasi Hari ke-30 (Keputusan)",
+          "branches": [
+            [
+              "Sesuai target",
+              "Lanjut ke umpan balik hari ke-60"
+            ],
+            [
+              "Belum sesuai",
+              "Rencana perbaikan 30 hari bersama mentor"
+            ]
+          ]
+        },
+        "f3_60": {
+          "t": "Umpan Balik Hari ke-60",
+          "out": "Catatan pengembangan"
+        },
+        "f3_90": {
+          "t": "Penilaian Akhir Masa Percobaan",
+          "out": "Keputusan dan sertifikat"
+        }
+      },
+      "roleFilterOptions": [
+        "Semua",
+        "HR",
+        "IT",
+        "MENTOR",
+        "ATASAN"
+      ],
+      "phaseJumps": [
+        {
+          "id": "fase-1",
+          "label": "Fase 1: Persiapan"
+        },
+        {
+          "id": "fase-2",
+          "label": "Fase 2: Integrasi"
+        },
+        {
+          "id": "fase-3",
+          "label": "Fase 3: Evaluasi"
+        }
+      ]
+    },
+    {
+      "type": "scenarioPicker",
+      "category": "Latihan",
+      "narration": "Mari berlatih. Tersedia tiga skenario akses dan perangkat. Pilih satu skenario, lalu pilih tindakan yang menurut Anda paling tepat. Sistem akan menampilkan penilaian beserta alasannya.",
+      "title": "Studi Kasus: Akses dan Perangkat",
+      "lead": "Pilih tindakan yang paling tepat untuk setiap skenario, lalu baca alasannya.",
+      "infoBanner": "Tidak ada skor pada latihan ini. Tujuannya adalah membiasakan Anda mengambil langkah yang sesuai prosedur.",
+      "cards": [
+        {
+          "icon": "vpn_key",
+          "title": "Hak Akses",
+          "desc": "Akun dibuat dengan hak akses paling minimal sesuai jabatan."
+        },
+        {
+          "icon": "laptop_mac",
+          "title": "Perangkat",
+          "desc": "Perangkat kerja diserahkan setelah berkas lengkap diverifikasi."
+        },
+        {
+          "icon": "support_agent",
+          "title": "Saluran Bantuan",
+          "desc": "Kendala dicatat lewat tiket agar terlacak dan terukur."
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "scn_akun",
+          "label": "Skenario 1",
+          "title": "Akun surel belum aktif pada hari pertama",
+          "options": [
+            {
+              "id": "scn_akun_a",
+              "label": "Menunggu sampai akun aktif dengan sendirinya",
+              "verdict": "Kurang tepat. Menunggu tanpa melapor membuat pekerjaan awal tertunda dan tidak terlacak. Catat kendala melalui tiket bantuan agar ada riwayat penanganan.",
+              "tone": "negative"
+            },
+            {
+              "id": "scn_akun_b",
+              "label": "Membuat tiket bantuan ke IT dan memberi tahu atasan",
+              "verdict": "Tepat. <strong>Tiket bantuan</strong> memberi jejak penanganan, sedangkan pemberitahuan ke atasan menjaga ekspektasi pekerjaan hari pertama.",
+              "tone": "positive"
+            },
+            {
+              "id": "scn_akun_c",
+              "label": "Memakai akun rekan kerja untuk sementara",
+              "verdict": "Salah. Berbagi akun melanggar prinsip akuntabilitas akses dan meninggalkan jejak audit yang tidak sah.",
+              "tone": "negative"
+            }
+          ]
+        },
+        {
+          "id": "scn_berkas",
+          "label": "Skenario 2",
+          "title": "Satu berkas administrasi belum lengkap saat verifikasi",
+          "options": [
+            {
+              "id": "scn_berkas_a",
+              "label": "Melanjutkan proses dan melengkapi berkas kapan saja",
+              "verdict": "Kurang tepat. Kelengkapan berkas adalah syarat pembuatan akun. Melanjutkan tanpa berkas lengkap menciptakan temuan administrasi.",
+              "tone": "negative"
+            },
+            {
+              "id": "scn_berkas_b",
+              "label": "Mencatat kekurangan pada daftar pantau dan menetapkan tenggat",
+              "verdict": "Tepat. Kekurangan dicatat pada <strong>daftar pantau</strong> dengan tenggat paling lambat tujuh hari kerja.",
+              "tone": "positive"
+            },
+            {
+              "id": "scn_berkas_c",
+              "label": "Membatalkan seluruh proses orientasi",
+              "verdict": "Berlebihan. Kekurangan berkas diselesaikan secara administratif, bukan dengan menghentikan proses.",
+              "tone": "neutral"
+            }
+          ]
+        },
+        {
+          "id": "scn_mentor",
+          "label": "Skenario 3",
+          "title": "Belum ada mentor yang ditunjuk pada hari kedua",
+          "options": [
+            {
+              "id": "scn_mentor_a",
+              "label": "Mengangkat atasan langsung sebagai mentor",
+              "verdict": "Kurang tepat. Mentor sebaiknya berasal dari tim yang sama namun bukan jalur atasan langsung, agar umpan balik tetap terbuka.",
+              "tone": "neutral"
+            },
+            {
+              "id": "scn_mentor_b",
+              "label": "Mengajukan usulan nama mentor dari tim yang sama ke atasan",
+              "verdict": "Tepat. Usulan diajukan ke atasan langsung dan ditetapkan paling lambat hari ketiga.",
+              "tone": "positive"
+            },
+            {
+              "id": "scn_mentor_c",
+              "label": "Menunda sampai evaluasi hari ke-30",
+              "verdict": "Salah. Tanpa mentor, rencana belajar tiga puluh hari tidak dapat disusun dan target awal berisiko terlewat.",
+              "tone": "negative"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "tabbedAccordion",
+      "category": "Peran & Tanggung Jawab",
+      "narration": "Setiap pihak memiliki tanggung jawab yang berbeda. Tab HR memuat penerbitan dokumen dan pemeriksaan berkas. Tab Atasan memuat penetapan target dan penilaian. Tab IT memuat penyiapan akun dan pendampingan teknis. Gunakan daftar periksa di bagian bawah sebagai pengingat.",
+      "title": "Tanggung Jawab per Pihak",
+      "lead": "Buka tiap tab untuk melihat rincian tugas dan keluarannya.",
+      "tabs": [
+        {
+          "key": "hr",
+          "label": "HR Onboarding",
+          "items": [
+            {
+              "t": "Menerbitkan surat penawaran kerja",
+              "d": "Maksimal tiga hari kerja setelah hasil seleksi disetujui."
+            },
+            {
+              "t": "Memeriksa kelengkapan berkas",
+              "d": "Kekurangan dicatat pada daftar pantau dengan tenggat yang jelas."
+            },
+            {
+              "t": "Memimpin sesi sambutan hari pertama",
+              "d": "Mencakup kode etik, jam kerja, dan saluran pelaporan."
+            },
+            {
+              "t": "Menyusun penilaian akhir masa percobaan",
+              "d": "Diverifikasi bersama atasan langsung pada hari ke-90."
+            }
+          ]
+        },
+        {
+          "key": "atasan",
+          "label": "Atasan Langsung",
+          "items": [
+            {
+              "t": "Menetapkan target tiga puluh hari",
+              "d": "Target harus spesifik dan dapat diamati."
+            },
+            {
+              "t": "Menunjuk mentor dari tim yang sama",
+              "d": "Mentor bukan dari jalur atasan langsung."
+            },
+            {
+              "t": "Memberi umpan balik hari ke-60",
+              "d": "Disampaikan tertulis dan dibahas langsung."
+            },
+            {
+              "t": "Menilai kesiapan akhir",
+              "d": "Bersandar pada indikator, bukan kesan subjektif."
+            }
+          ]
+        },
+        {
+          "key": "it",
+          "label": "IT Support",
+          "items": [
+            {
+              "t": "Membuat akun surel dan akses aplikasi",
+              "d": "Hak akses mengikuti prinsip paling minimal."
+            },
+            {
+              "t": "Menyiapkan perangkat kerja",
+              "d": "Diserahkan setelah berkas dinyatakan lengkap."
+            },
+            {
+              "t": "Menangani tiket kendala teknis",
+              "d": "Ditutup maksimal dua hari kerja sejak tiket dibuat."
+            },
+            {
+              "t": "Menonaktifkan akses saat karyawan keluar",
+              "d": "Dilakukan pada hari kerja yang sama dengan tanggal terakhir."
+            }
+          ]
+        }
+      ],
+      "checklist": [
+        {
+          "label": "Daftar Periksa Hari Pertama",
+          "items": [
+            "Berkas kepegawaian dinyatakan lengkap",
+            "Akun surel dan aplikasi inti sudah aktif",
+            "Perangkat kerja telah diterima dan dicatat",
+            "Mentor telah ditunjuk dan diperkenalkan",
+            "Rencana belajar tiga puluh hari telah ditandatangani"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "verificationMatrix",
+      "category": "Verifikasi",
+      "narration": "Matriks verifikasi ini memetakan dokumen yang harus diperiksa pada tiap tahap. Tab hari pertama, minggu pertama, dan hari ke sembilan puluh masing-masing memiliki daftar dokumen dengan penanggung jawab dan catatannya.",
+      "title": "Matriks Verifikasi Kelengkapan",
+      "lead": "Dokumen yang harus diperiksa pada setiap tahap beserta penanggung jawabnya.",
+      "tabs": [
+        {
+          "key": "hari1",
+          "label": "Hari Pertama",
+          "defaultPic": "HR Onboarding",
+          "items": [
+            {
+              "doc": "Berkas kepegawaian lengkap",
+              "pic": "HR Onboarding",
+              "note": "Disimpan pada arsip digital kepegawaian."
+            },
+            {
+              "doc": "Berita acara sambutan",
+              "pic": "HR Onboarding",
+              "note": "Ditandatangani karyawan baru pada hari yang sama."
+            },
+            {
+              "doc": "Bukti penyerahan perangkat kerja",
+              "pic": "IT Support",
+              "note": "Memuat nomor seri perangkat."
+            },
+            {
+              "doc": "Surat pernyataan kepatuhan kode etik",
+              "pic": "HR Onboarding",
+              "noInfo": false
+            }
+          ]
+        },
+        {
+          "key": "minggu1",
+          "label": "Minggu Pertama",
+          "defaultPic": "Atasan Langsung",
+          "items": [
+            {
+              "doc": "Rencana belajar 30 hari",
+              "pic": "Atasan Langsung",
+              "note": "Disepakati bersama karyawan baru dan mentor."
+            },
+            {
+              "doc": "Catatan perkenalan dengan tim",
+              "pic": "Mentor Pendamping",
+              "noInfo": true
+            },
+            {
+              "doc": "Konfirmasi hak akses aplikasi inti",
+              "pic": "IT Support",
+              "note": "Diperiksa ulang terhadap daftar kebutuhan jabatan."
+            }
+          ]
+        },
+        {
+          "key": "hari90",
+          "label": "Hari ke-90",
+          "defaultPic": "HR Onboarding",
+          "items": [
+            {
+              "doc": "Formulir penilaian masa percobaan",
+              "pic": "Atasan Langsung",
+              "note": "Memuat capaian terhadap target tiga puluh hari."
+            },
+            {
+              "doc": "Catatan umpan balik hari ke-60",
+              "pic": "Atasan Langsung"
+            },
+            {
+              "doc": "Hasil uji pemahaman orientasi",
+              "pic": "HR Onboarding",
+              "note": "Ambang batas kelulusan delapan puluh persen."
+            },
+            {
+              "doc": "Keputusan akhir masa percobaan",
+              "pic": "HR Onboarding",
+              "note": "Disampaikan maksimal lima hari kerja setelah hari ke-90."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "twoCardAccordion",
+      "category": "Kebijakan",
+      "narration": "Kebijakan orientasi dibedakan untuk karyawan tetap dan karyawan kontrak. Keduanya menjalani tahap yang sama pada tiga puluh hari pertama, namun berbeda pada tahap evaluasi dan masa pendampingan lanjutan.",
+      "title": "Dua Jalur Orientasi",
+      "lead": "Bandingkan perlakuan orientasi menurut jenis hubungan kerja.",
+      "infoBanner": "Perbedaan utama terletak pada masa pendampingan lanjutan dan bentuk penilaian akhir.",
+      "infoBannerIcon": "info",
+      "cards": [
+        {
+          "icon": "badge",
+          "title": "Karyawan Tetap",
+          "desc": "Menjalani masa percobaan tiga bulan dengan pendampingan mentor penuh.",
+          "items": [
+            {
+              "label": "Masa percobaan",
+              "value": "90 hari kalender"
+            },
+            {
+              "label": "Pendampingan mentor",
+              "value": "Sampai akhir masa percobaan"
+            },
+            {
+              "label": "Penilaian akhir",
+              "value": "Formulir penilaian + uji pemahaman"
+            },
+            {
+              "label": "Kelanjutan",
+              "value": "Pengangkatan tetap atau perpanjangan"
+            }
+          ]
+        },
+        {
+          "icon": "contract",
+          "title": "Karyawan Kontrak",
+          "desc": "Menjalani orientasi ringkas dengan fokus pada keselamatan kerja dan kepatuhan.",
+          "items": [
+            {
+              "label": "Masa percobaan",
+              "value": "30 hari kalender"
+            },
+            {
+              "label": "Pendampingan mentor",
+              "value": "Sampai hari ke-30"
+            },
+            {
+              "label": "Penilaian akhir",
+              "value": "Catatan atasan + uji pemahaman"
+            },
+            {
+              "label": "Kelanjutan",
+              "value": "Perpanjangan kontrak atau penghentian"
+            }
+          ]
+        }
+      ],
+      "miniCheck": [
+        {
+          "label": "Periksa Sebelum Menetapkan Jalur",
+          "items": [
+            "Jenis hubungan kerja tercatat pada surat penawaran kerja",
+            "Durasi masa percobaan sesuai ketentuan yang berlaku",
+            "Kewajiban pelatihan keselamatan kerja sudah dijadwalkan"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "docTabs",
+      "category": "Dokumen",
+      "narration": "Tab dokumen menghimpun tiga kelompok berkas. Tab daftar memuat butir ringkas. Tab catatan memuat dokumen beserta keterangannya. Tab lampiran memuat berkas pendukung yang perlu diunggah.",
+      "title": "Dokumen dan Formulir Orientasi",
+      "lead": "Tiga kelompok berkas yang dipakai sepanjang proses orientasi.",
+      "tabs": [
+        {
+          "key": "daftar",
+          "label": "Daftar Berkas",
+          "itemType": "list",
+          "items": [
+            "Surat penawaran kerja yang telah ditandatangani",
+            "Berkas kepegawaian lengkap",
+            "Surat pernyataan kepatuhan kode etik",
+            "Bukti penyerahan perangkat kerja",
+            "Rencana belajar 30 hari"
+          ]
+        },
+        {
+          "key": "catatan",
+          "label": "Catatan Dokumen",
+          "itemType": "records",
+          "items": [
+            {
+              "doc": "Formulir penilaian masa percobaan",
+              "note": "Diisi atasan langsung pada hari ke-90."
+            },
+            {
+              "doc": "Catatan umpan balik hari ke-60",
+              "note": "Disampaikan tertulis kepada karyawan baru."
+            },
+            {
+              "doc": "Daftar pantau kekurangan berkas",
+              "note": "Ditutup maksimal tujuh hari kerja sejak dibuat."
+            }
+          ]
+        },
+        {
+          "key": "lampiran",
+          "label": "Lampiran",
+          "itemType": "attachments",
+          "items": [
+            {
+              "doc": "Panduan keselamatan kerja",
+              "note": "Wajib dibaca sebelum hari pertama."
+            },
+            {
+              "doc": "Tata tertib kehadiran",
+              "note": "Memuat jam kerja dan mekanisme izin."
+            },
+            {
+              "doc": "Peta lokasi kerja",
+              "note": "Menandai pintu masuk, ruang rapat, dan titik darurat."
+            }
+          ]
+        }
+      ],
+      "checkpoint": {
+        "prompt": "Cek kelengkapan berkas",
+        "question": {
+          "id": "cp-7",
+          "type": "multipleResponse",
+          "question": "Dokumen mana saja yang termasuk berkas wajib orientasi?",
+          "options": [
+            "Kontrak kerja",
+            "KTP",
+            "Slip gaji bulan lalu",
+            "Formulir data pribadi"
+          ],
+          "correctIndexes": [
+            0,
+            1,
+            3
+          ],
+          "explanation": "Slip gaji bulan lalu bukan berkas orientasi; tiga lainnya wajib dilampirkan."
+        },
+        "successNote": "Tepat — slip gaji bukan bagian dari berkas orientasi.",
+        "wrongNote": "Belum tepat. Periksa lagi: satu di antaranya bukan berkas orientasi."
+      }
+    },
+    {
+      "type": "kpiDashboard",
+      "category": "Pengukuran",
+      "narration": "Keberhasilan orientasi diukur melalui lima indikator utama, antara lain kelengkapan berkas, waktu aktivasi akun, dan kelulusan uji pemahaman. Bagian bawah memuat daftar periksa audit yang dipakai tim HR saat meninjau proses.",
+      "title": "Indikator Keberhasilan Orientasi",
+      "lead": "Lima indikator yang dipantau setiap bulan oleh tim HR.",
+      "kpis": [
+        {
+          "label": "Kelengkapan Berkas Hari Pertama",
+          "value": "98%",
+          "target": "≥ 95%",
+          "desc": "Persentase karyawan baru dengan berkas lengkap saat hari pertama.",
+          "icon": "folder_managed"
+        },
+        {
+          "label": "Rata-rata Aktivasi Akun",
+          "value": "1,4 hari",
+          "target": "≤ 2 hari",
+          "desc": "Jarak waktu dari berkas lengkap sampai akun aktif.",
+          "icon": "vpn_key"
+        },
+        {
+          "label": "Penunjukan Mentor",
+          "value": "100%",
+          "target": "100%",
+          "desc": "Karyawan baru yang memiliki mentor pada hari ketiga.",
+          "icon": "diversity_3"
+        },
+        {
+          "label": "Kelulusan Uji Pemahaman",
+          "value": "92%",
+          "target": "≥ 85%",
+          "desc": "Peserta yang melampaui ambang batas delapan puluh persen.",
+          "icon": "quiz"
+        },
+        {
+          "label": "Kepuasan Orientasi",
+          "value": "4,5 / 5",
+          "target": "≥ 4,0",
+          "desc": "Hasil survei singkat pada akhir masa percobaan.",
+          "icon": "sentiment_satisfied"
+        }
+      ],
+      "auditChecklist": [
+        {
+          "id": "AUD-01",
+          "label": "Seluruh dokumen tahap tersimpan pada arsip digital"
+        },
+        {
+          "id": "AUD-02",
+          "label": "Daftar pantau berkas tidak memiliki butir yang melewati tenggat"
+        },
+        {
+          "id": "AUD-03",
+          "label": "Hak akses aplikasi sesuai daftar kebutuhan jabatan"
+        },
+        {
+          "id": "AUD-04",
+          "label": "Formulir penilaian hari ke-90 telah ditandatangani kedua pihak"
+        }
+      ]
+    },
+    {
+      "type": "riskCards",
+      "category": "Manajemen Risiko",
+      "narration": "Bagian ini memuat empat risiko yang paling sering muncul dalam proses orientasi, beserta mitigasinya. Risiko berkas tidak lengkap dan akun yang terlambat aktif berdampak langsung pada produktivitas hari-hari pertama.",
+      "title": "Risiko dan Mitigasi",
+      "lead": "Empat risiko yang paling sering muncul beserta langkah pencegahannya.",
+      "risks": [
+        {
+          "no": "1.2",
+          "proc": "Pemeriksaan berkas kepegawaian",
+          "risk": "Berkas tidak lengkap pada hari pertama sehingga akun kerja tidak dapat dibuat.",
+          "mit": "Gunakan daftar pantau berkas dengan tenggat paling lambat tujuh hari kerja dan kirim pengingat terjadwal."
+        },
+        {
+          "no": "1.3",
+          "proc": "Penyiapan akun dan perangkat",
+          "risk": "Aktivasi akun melewati hari pertama sehingga karyawan baru tidak dapat bekerja.",
+          "mit": "Ajukan pembuatan akun segera setelah berkas dinyatakan lengkap, maksimal dua hari kerja sebelum hari pertama."
+        },
+        {
+          "no": "2.2",
+          "proc": "Penunjukan mentor",
+          "risk": "Mentor tidak ditunjuk sehingga rencana belajar tiga puluh hari tidak tersusun.",
+          "mit": "Atasan langsung menetapkan mentor paling lambat hari ketiga, dengan satu nama cadangan."
+        },
+        {
+          "no": "3.2",
+          "proc": "Penilaian akhir masa percobaan",
+          "risk": "Penilaian tertunda karena catatan capaian tidak terdokumentasi.",
+          "mit": "Simpan catatan capaian pada berkas kepegawaian sejak hari ke-30 dan tinjau ulang setiap tiga puluh hari."
+        }
+      ]
+    },
+    {
+      "type": "stepByStep",
+      "category": "Panduan Praktis",
+      "narration": "Enam langkah hari pertama, dimulai dari pelaporan diri di meja penerimaan sampai penandatanganan rencana belajar. Ikuti urutannya agar tidak ada dokumen yang terlewat.",
+      "title": "Enam Langkah Hari Pertama",
+      "lead": "Ikuti urutan berikut pada hari pertama kerja Anda.",
+      "connector": "arrow",
+      "steps": [
+        {
+          "number": "1",
+          "icon": "badge",
+          "title": "Pelaporan Diri",
+          "desc": "Lapor ke meja penerimaan dengan membawa kartu identitas dan surat penawaran kerja."
+        },
+        {
+          "number": "2",
+          "icon": "how_to_reg",
+          "title": "Verifikasi Berkas",
+          "desc": "Serahkan berkas kepegawaian kepada petugas HR untuk diperiksa kelengkapannya."
+        },
+        {
+          "number": "3",
+          "icon": "laptop_mac",
+          "title": "Penerimaan Perangkat",
+          "desc": "Terima perangkat kerja dari IT Support dan periksa nomor serinya."
+        },
+        {
+          "number": "4",
+          "icon": "groups",
+          "title": "Sesi Sambutan",
+          "desc": "Ikuti penjelasan kode etik, jam kerja, dan saluran pelaporan."
+        },
+        {
+          "number": "5",
+          "icon": "diversity_3",
+          "title": "Perkenalan dengan Mentor",
+          "desc": "Bertemu mentor pendamping dan membahas harapan tim."
+        },
+        {
+          "number": "6",
+          "icon": "edit_document",
+          "title": "Penandatanganan Rencana Belajar",
+          "desc": "Tandatangani rencana belajar tiga puluh hari bersama atasan langsung."
+        }
+      ],
+      "checkpoint": {
+        "prompt": "Susun ulang sebelum lanjut",
+        "question": {
+          "id": "cp-10",
+          "type": "ordering",
+          "question": "Urutkan empat langkah pertama hari pertama kerja.",
+          "items": [
+            "Pelaporan Diri",
+            "Verifikasi Berkas",
+            "Penerimaan Perangkat",
+            "Sesi Sambutan"
+          ],
+          "explanation": "Administrasi mendahului perangkat: lapor diri, verifikasi berkas, terima perangkat, lalu sambutan."
+        },
+        "successNote": "Tepat. Administrasi memang mendahului penyerahan perangkat.",
+        "wrongNote": "Belum tepat — mulai dari administrasi, bukan perangkat."
+      }
+    },
+    {
+      "type": "comparisonTable",
+      "category": "Perbandingan",
+      "narration": "Tabel ini membandingkan dua metode orientasi, yaitu orientasi terpusat dan pendampingan mentor. Keduanya dapat dipakai bersamaan sesuai kebutuhan unit kerja.",
+      "title": "Perbandingan Metode Orientasi",
+      "lead": "Dua metode yang dapat dipakai bersama, dengan keunggulan dan keterbatasannya masing-masing.",
+      "columns": [
+        {
+          "key": "aspek",
+          "label": "Aspek",
+          "icon": "list_alt"
+        },
+        {
+          "key": "terpusat",
+          "label": "Orientasi Terpusat",
+          "icon": "school"
+        },
+        {
+          "key": "mentor",
+          "label": "Pendampingan Mentor",
+          "icon": "diversity_3"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Pengelola",
+          "cells": {
+            "terpusat": "Tim HR",
+            "mentor": "Atasan langsung bersama mentor"
+          }
+        },
+        {
+          "label": "Waktu",
+          "cells": {
+            "terpusat": "Hari pertama, satu sesi penuh",
+            "mentor": "Berjalan sepanjang masa percobaan"
+          }
+        },
+        {
+          "label": "Fokus",
+          "cells": {
+            "terpusat": "Kebijakan, kode etik, dan administrasi",
+            "mentor": "Keterampilan kerja dan konteks tim"
+          }
+        },
+        {
+          "label": "Keluaran",
+          "cells": {
+            "terpusat": "Berita acara sambutan",
+            "mentor": "Rencana belajar dan catatan capaian"
+          }
+        },
+        {
+          "label": "Keterbatasan",
+          "cells": {
+            "terpusat": "<em>Kurang mendalam pada aspek teknis</em>",
+            "mentor": "<em>Bergantung pada ketersediaan mentor</em>"
+          }
+        }
+      ],
+      "highlightColumn": "mentor"
+    },
+    {
+      "type": "imageGallery",
+      "category": "Orientasi Lokasi",
+      "narration": "Galeri ini memperlihatkan beberapa titik penting di lokasi kerja, yaitu lobi utama, ruang kerja bersama, ruang rapat, dan titik kumpul darurat. Perhatikan letaknya agar Anda mudah menemukannya pada hari pertama.",
+      "title": "Galeri Titik Penting Lokasi Kerja",
+      "lead": "Empat titik yang perlu Anda kenali pada hari pertama.",
+      "layout": "grid",
+      "columns": 2,
+      "images": [
+        {
+          "src": "assets/gallery/lobi-utama.jpg",
+          "alt": "Lobi utama gedung kantor",
+          "caption": "Lobi utama: tempat pelaporan diri hari pertama.",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "assets/gallery/ruang-kerja.jpg",
+          "alt": "Ruang kerja bersama dengan meja berkelompok",
+          "caption": "Ruang kerja bersama tim Anda.",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "assets/gallery/ruang-rapat.jpg",
+          "alt": "Ruang rapat dengan proyektor",
+          "caption": "Ruang rapat untuk sesi sambutan dan umpan balik.",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "assets/gallery/titik-darurat.jpg",
+          "alt": "Titik kumpul darurat di halaman gedung",
+          "caption": "Titik kumpul darurat di halaman belakang.",
+          "width": 1280,
+          "height": 720
+        }
+      ]
+    },
+    {
+      "type": "hotspotImage",
+      "category": "Orientasi",
+      "title": "Denah Hari Pertama: Empat Titik Wajib",
+      "lead": "Buka setiap titik untuk tahu apa yang harus dibawa dan dilakukan di sana.",
+      "mode": "explore",
+      "foundLabel": "titik dibuka",
+      "completeNote": "Semua titik sudah dibuka. Urutan kunjungan: pelaporan → verifikasi → perangkat → sambutan.",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgMzYwIiB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCI+CiAgPHJlY3Qgd2lkdGg9IjY0MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNGMEY0RjciLz4KICA8cmVjdCB4PSIxNiIgeT0iMTYiIHdpZHRoPSI2MDgiIGhlaWdodD0iMzI4IiByeD0iMTYiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iI0NCRDVFMSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iMzQiIHk9IjU2IiBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOSIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBGMjQzRSI+RGVuYWggSGFyaSBQZXJ0YW1hPC90ZXh0PgogIDx0ZXh0IHg9IjM0IiB5PSI3OCIgZm9udC1mYW1pbHk9IkFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2NDc0OEIiPkVtcGF0IHRpdGlrIHlhbmcgd2FqaWIgZGlrdW5qdW5naTwvdGV4dD4KICA8ZyBmb250LWZhbWlseT0iQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZiI+CiAgICA8cmVjdCB4PSI2MCIgeT0iOTYiIHdpZHRoPSIyMjAiIGhlaWdodD0iOTAiIHJ4PSIxMiIgZmlsbD0iI0U4RjBGOCIgc3Ryb2tlPSIjMkI3M0JEIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjE3MCIgeT0iMTM2IiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMjA1Qzk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MT0tFVCBQRUxBUE9SQU48L3RleHQ+CiAgICA8dGV4dCB4PSIxNzAiIHk9IjE1OCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzQ3NTU2OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TGFwb3IgZGlyaSBrZSBIQzwvdGV4dD4KCiAgICA8cmVjdCB4PSIzNjAiIHk9Ijk2IiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjkwIiByeD0iMTIiIGZpbGw9IiNFOEYwRjgiIHN0cm9rZT0iIzJCNzNCRCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI0NzAiIHk9IjEzNiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzIwNUM5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VkVSSUZJS0FTSSBCRVJLQVM8L3RleHQ+CiAgICA8dGV4dCB4PSI0NzAiIHk9IjE1OCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzQ3NTU2OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+S29udHJhaywgaWphemFoLCBOUFdQPC90ZXh0PgoKICAgIDxyZWN0IHg9IjYwIiB5PSIyMDYiIHdpZHRoPSIyMjAiIGhlaWdodD0iOTAiIHJ4PSIxMiIgZmlsbD0iI0U4RjBGOCIgc3Ryb2tlPSIjMkI3M0JEIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjE3MCIgeT0iMjQ2IiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMjA1Qzk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5NRUpBIElUPC90ZXh0PgogICAgPHRleHQgeD0iMTcwIiB5PSIyNjgiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM0NzU1NjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlBlcmFuZ2thdCAmYW1wOyBha3VuPC90ZXh0PgoKICAgIDxyZWN0IHg9IjM2MCIgeT0iMjA2IiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjkwIiByeD0iMTIiIGZpbGw9IiNFOEYwRjgiIHN0cm9rZT0iIzJCNzNCRCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSI0NzAiIHk9IjI0NiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzIwNUM5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UlVBTkcgU0FNQlVUQU48L3RleHQ+CiAgICA8dGV4dCB4PSI0NzAiIHk9IjI2OCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzQ3NTU2OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VGltICZhbXA7IG1lbnRvcjwvdGV4dD4KICA8L2c+Cjwvc3ZnPg==",
+      "alt": "Denah sederhana berisi empat area: loket pelaporan, verifikasi berkas, meja IT, dan ruang sambutan.",
+      "caption": "Ilustrasi denah — area sebenarnya mengikuti layout kantor masing-masing.",
+      "hotspots": [
+        {
+          "id": "h1",
+          "x": 26.6,
+          "y": 34.7,
+          "label": "1",
+          "title": "Loket Pelaporan",
+          "body": "Lapor diri ke HC dengan membawa <strong>KTP</strong> dan surat keterangan lulus/magang.",
+          "note": "Datang 15 menit lebih awal."
+        },
+        {
+          "id": "h2",
+          "x": 73.4,
+          "y": 34.7,
+          "label": "2",
+          "title": "Verifikasi Berkas",
+          "body": "Serahkan kontrak kerja, ijazah, dan NPWP untuk diverifikasi."
+        },
+        {
+          "id": "h3",
+          "x": 26.6,
+          "y": 68.0,
+          "label": "3",
+          "title": "Meja IT",
+          "body": "Ambil perangkat kerja dan akun sistem (email, HRIS, VPN)."
+        },
+        {
+          "id": "h4",
+          "x": 73.4,
+          "y": 68.0,
+          "label": "4",
+          "title": "Ruang Sambutan",
+          "body": "Perkenalan tim dan penunjukan mentor oleh atasan langsung."
+        }
+      ],
+      "narration": "Denah hari pertama punya empat titik wajib. Pertama, loket pelaporan: lapor diri ke HC dengan membawa KTP dan surat keterangan. Kedua, verifikasi berkas: serahkan kontrak kerja, ijazah, dan NPWP. Ketiga, meja IT: ambil perangkat kerja serta akun sistem. Keempat, ruang sambutan: perkenalan tim dan penunjukan mentor. Buka setiap titik pada gambar untuk detailnya."
+    },
+    {
+      "type": "branchingScenario",
+      "category": "Studi Kasus",
+      "title": "Studi Kasus: Berkas Belum Lengkap",
+      "lead": "Pilih tindakan, lihat konsekuensinya, lalu ulangi untuk membandingkan jalur.",
+      "start": "n1",
+      "feedbackLabel": "Konsekuensi",
+      "restartLabel": "Ulangi skenario",
+      "successNote": "Tepat: onboarding berjalan dan kepatuhan tetap terjaga lewat tenggat susulan.",
+      "failureNote": "Jalur ini menunda onboarding tanpa manfaat kepatuhan — ulangi dan pilih jalur susulan.",
+      "narration": "Skenario: karyawan baru belum membawa NPWP karena masih diproses, sementara berkas lain lengkap. Ada dua pilihan. Meminta karyawan pulang akan menunda seluruh onboarding. Menerima berkas yang ada sambil mencatat NPWP sebagai dokumen menyusul dalam empat belas hari membuat onboarding tetap berjalan tanpa kehilangan kepatuhan. Pilih tindakan, lihat konsekuensinya, lalu ulangi untuk mencoba jalur lain.",
+      "nodes": [
+        {
+          "id": "n1",
+          "actor": "HC",
+          "title": "NPWP belum diterima",
+          "body": "Hari pertama, karyawan baru menyampaikan <strong>NPWP belum ada</strong> karena masih diproses. KTP, ijazah, dan kontrak sudah lengkap. Apa yang Anda lakukan?",
+          "choices": [
+            {
+              "label": "Minta karyawan pulang dan kembali setelah NPWP selesai",
+              "next": "n2",
+              "correct": false,
+              "feedback": "Keputusan ini menunda seluruh proses onboarding."
+            },
+            {
+              "label": "Terima berkas yang ada, catat NPWP sebagai dokumen menyusul (14 hari)",
+              "next": "n3",
+              "correct": true,
+              "feedback": "Onboarding tetap berjalan dan kepatuhan dijaga lewat tenggat susulan."
+            }
+          ]
+        },
+        {
+          "id": "n2",
+          "title": "Onboarding tertunda",
+          "body": "Karyawan dipulangkan sehingga sesi sambutan, penyerahan perangkat, dan penunjukan mentor ikut tertunda. Tidak ada nilai tambah kepatuhan dari penundaan ini.",
+          "ending": true,
+          "correct": false,
+          "debrief": "Kekurangan satu dokumen tidak otomatis menggugurkan onboarding. Yang dibutuhkan adalah pencatatan dokumen menyusul **beserta tenggatnya**."
+        },
+        {
+          "id": "n3",
+          "title": "Onboarding berjalan, kepatuhan terjaga",
+          "body": "Berkas yang ada diverifikasi, NPWP dicatat sebagai dokumen menyusul dengan tenggat 14 hari, dan onboarding lanjut sesuai jadwal.",
+          "ending": true,
+          "correct": true,
+          "debrief": "Prinsipnya: pisahkan **verifikasi berkas** dari **penjadwalan onboarding**. Dokumen menyusul dicatat dengan tenggat agar tidak hilang."
+        }
+      ]
+    },
+    {
+      "type": "videoEmbed",
+      "category": "Media",
+      "narration": "Video berikut memuat sambutan singkat dari tim kepemimpinan dan penjelasan ringkas mengenai nilai utama perusahaan. Durasi video sekitar tiga menit.",
+      "title": "Sambutan Tim Kepemimpinan",
+      "lead": "Tonton video ini sebelum melanjutkan ke bagian berikutnya.",
+      "src": "assets/video/sambutan-orientasi.mp4",
+      "provider": "file",
+      "poster": "assets/video/sambutan-orientasi-poster.jpg",
+      "durationLabel": "03:12",
+      "aspectRatio": "16:9"
+    },
+    {
+      "type": "calloutBox",
+      "category": "Pengingat",
+      "narration": "Perhatian. Kelengkapan berkas adalah syarat utama. Tanpa berkas yang lengkap, akun kerja dan perangkat tidak dapat diserahkan. Pastikan seluruh dokumen diserahkan paling lambat pada hari pertama.",
+      "title": "Berkas Lengkap adalah Syarat Utama",
+      "lead": "Pengingat penting sebelum Anda melanjutkan.",
+      "variant": "warning",
+      "icon": "priority_high",
+      "body": "<strong>Akun kerja dan perangkat tidak dapat diserahkan</strong> sebelum berkas kepegawaian dinyatakan lengkap.<br>Jika ada dokumen yang belum siap, segera hubungi HR Onboarding untuk dicatat pada <em>daftar pantau</em> dengan tenggat yang disepakati."
+    },
+    {
+      "type": "faqAccordion",
+      "category": "FAQ",
+      "narration": "Berikut pertanyaan yang paling sering diajukan peserta orientasi, mulai dari tenggat berkas, jadwal sesi sambutan, sampai indikator penilaian masa percobaan.",
+      "title": "Pertanyaan yang Sering Diajukan",
+      "lead": "Klik tiap pertanyaan untuk melihat jawabannya.",
+      "items": [
+        {
+          "icon": "help",
+          "q": "Berapa lama tenggat melengkapi berkas kepegawaian?",
+          "a": "Paling lambat <strong>tujuh hari kerja</strong> sejak kekurangan berkas dicatat pada daftar pantau."
+        },
+        {
+          "icon": "help",
+          "q": "Kapan sesi sambutan hari pertama dilaksanakan?",
+          "a": "Pada hari pertama kerja, setelah berkas diverifikasi dan perangkat kerja diserahkan."
+        },
+        {
+          "icon": "help",
+          "q": "Apakah mentor boleh berasal dari atasan langsung?",
+          "a": "Tidak. Mentor dipilih dari tim yang sama namun bukan dari jalur atasan langsung, agar umpan balik tetap terbuka."
+        },
+        {
+          "icon": "help",
+          "q": "Apa saja indikator penilaian masa percobaan?",
+          "a": "Capaian terhadap target tiga puluh hari, catatan umpan balik hari ke-60, dan hasil uji pemahaman orientasi."
+        },
+        {
+          "icon": "help",
+          "q": "Apa yang terjadi bila evaluasi hari ke-30 belum sesuai target?",
+          "a": "Disusun <strong>rencana perbaikan tiga puluh hari</strong> bersama mentor, lalu ditinjau ulang pada evaluasi berikutnya."
+        },
+        {
+          "icon": "help",
+          "q": "Berapa ambang batas kelulusan uji pemahaman?",
+          "a": "Delapan puluh persen. Nilai ini ditetapkan pada konfigurasi modul dan dapat disesuaikan penyelenggara pelatihan."
+        }
+      ]
+    },
+    {
+      "type": "dragDropSet",
+      "category": "Latihan",
+      "title": "Sortir Berkas Orientasi",
+      "lead": "Tempatkan setiap berkas ke kategori yang tepat.",
+      "instructions": "Klik satu berkas lalu klik kategorinya. Bisa juga digeser dengan mouse; klik item yang sudah ditempatkan untuk mengembalikannya.",
+      "checkLabel": "Periksa penempatan",
+      "resetLabel": "Acak ulang",
+      "successNote": "Semua tepat: dua berkas wajib, dua boleh menyusul dengan tenggat.",
+      "partialNote": "Belum semua tepat — item merah perlu dipindahkan, lalu periksa lagi.",
+      "narration": "Latihan sortir berkas. KTP dan kontrak kerja wajib diserahkan pada hari pertama. NPWP dan ijazah yang masih dilegalisir boleh menyusul dengan catatan tenggat. Klik satu berkas lalu klik kategorinya, dan periksa penempatan untuk melihat hasilnya.",
+      "buckets": [
+        {
+          "id": "wajib",
+          "label": "Wajib hari pertama",
+          "desc": "Harus lengkap sebelum onboarding dimulai."
+        },
+        {
+          "id": "susulan",
+          "label": "Boleh menyusul",
+          "desc": "Dicatat sebagai dokumen menyusul beserta tenggatnya."
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "label": "KTP",
+          "bucket": "wajib"
+        },
+        {
+          "id": "i2",
+          "label": "Kontrak kerja",
+          "bucket": "wajib"
+        },
+        {
+          "id": "i3",
+          "label": "NPWP",
+          "bucket": "susulan"
+        },
+        {
+          "id": "i4",
+          "label": "Ijazah dilegalisir",
+          "bucket": "susulan"
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "category": "Uji Pemahaman",
+      "narration": "Saatnya uji pemahaman. Terdapat lima soal yang terdiri atas pilihan ganda, benar atau salah, dan isian singkat. Ambang batas kelulusan adalah delapan puluh persen. Anda memiliki paling banyak lima kali percobaan.",
+      "title": "Uji Pemahaman Orientasi",
+      "lead": "Lima soal: dua pilihan ganda, dua benar atau salah, dan satu isian singkat. Ambang batas kelulusan delapan puluh persen.",
+      "askParticipantInfo": true,
+      "questions": [
+        {
+          "id": 1,
+          "type": "mcq",
+          "question": "Berapa batas waktu melengkapi kekurangan berkas kepegawaian setelah dicatat pada daftar pantau?",
+          "options": [
+            "Tiga hari kerja",
+            "Tujuh hari kerja",
+            "Empat belas hari kerja",
+            "Tiga puluh hari kalender"
+          ],
+          "correctIndex": 1,
+          "explanation": "Kekurangan berkas wajib ditindaklanjuti paling lambat tujuh hari kerja sejak dicatat pada daftar pantau."
+        },
+        {
+          "id": 2,
+          "type": "mcq",
+          "question": "Siapa yang sebaiknya ditunjuk sebagai mentor pendamping karyawan baru?",
+          "options": [
+            "Atasan langsung agar penilaian lebih cepat",
+            "Anggota tim yang sama namun bukan jalur atasan langsung",
+            "Petugas HR Onboarding",
+            "Rekan dari divisi lain yang tidak terkait pekerjaan"
+          ],
+          "correctIndex": 1,
+          "explanation": "Mentor berasal dari tim yang sama namun bukan jalur atasan langsung, agar umpan balik tetap terbuka dan tidak bercampur dengan penilaian kinerja."
+        },
+        {
+          "id": 3,
+          "type": "trueFalse",
+          "question": "Akun kerja dan perangkat dapat diserahkan sebelum berkas kepegawaian dinyatakan lengkap.",
+          "correctBool": false,
+          "explanation": "Kelengkapan berkas adalah syarat utama. Akun dan perangkat baru diserahkan setelah berkas dinyatakan lengkap oleh HR."
+        },
+        {
+          "id": 4,
+          "type": "trueFalse",
+          "question": "Evaluasi masa percobaan dilakukan pada hari ke-30, ke-60, dan ke-90.",
+          "correctBool": true,
+          "explanation": "Penilaian berjenjang pada hari ke-30, ke-60, dan ke-90 memastikan capaian terpantau sejak awal, bukan hanya di akhir."
+        },
+        {
+          "id": 5,
+          "type": "fillIn",
+          "question": "Dokumen apa yang disusun bersama mentor dan ditandatangani pada minggu pertama? (jawab dengan tiga kata)",
+          "acceptedAnswers": [
+            "rencana belajar 30 hari",
+            "rencana belajar tiga puluh hari",
+            "rencana belajar 30hari"
+          ],
+          "placeholder": "Ketik nama dokumen...",
+          "explanation": "Rencana belajar 30 hari menjadi acuan capaian karyawan baru pada evaluasi hari ke-30."
+        },
+        {
+          "id": "q-multi",
+          "type": "multipleResponse",
+          "question": "Manakah yang termasuk tujuan program orientasi?",
+          "options": [
+            "Mempercepat adaptasi karyawan baru",
+            "Menyeragamkan pengalaman onboarding",
+            "Menggantikan penilaian masa percobaan",
+            "Memastikan kepatuhan administrasi"
+          ],
+          "correctIndexes": [
+            0,
+            1,
+            3
+          ],
+          "explanation": "Orientasi menyiapkan penilaian masa percobaan, bukan menggantikannya."
+        },
+        {
+          "id": "q-order",
+          "type": "ordering",
+          "question": "Urutkan langkah hari pertama dari yang paling awal.",
+          "items": [
+            "Pelaporan Diri",
+            "Verifikasi Berkas",
+            "Penerimaan Perangkat",
+            "Perkenalan dengan Mentor"
+          ],
+          "explanation": "Pelaporan diri lebih dulu, perkenalan mentor paling akhir."
+        },
+        {
+          "id": "q-match",
+          "type": "matching",
+          "question": "Pasangkan pihak dengan tanggung jawabnya.",
+          "pairs": [
+            {
+              "left": "HRD",
+              "right": "Verifikasi berkas administrasi"
+            },
+            {
+              "left": "Atasan Langsung",
+              "right": "Penunjukan mentor"
+            },
+            {
+              "left": "IT",
+              "right": "Penyiapan akun dan perangkat"
+            }
+          ],
+          "explanation": "Setiap pihak punya satu tanggung jawab utama pada hari pertama."
+        },
+        {
+          "id": "q-numeric",
+          "type": "numeric",
+          "question": "Berapa hari kerja batas maksimal penyelesaian seluruh langkah onboarding?",
+          "answer": 3,
+          "tolerance": 0,
+          "unit": "hari",
+          "placeholder": "contoh: 3",
+          "explanation": "Seluruh langkah dasar diselesaikan dalam 3 hari kerja pertama."
+        }
+      ]
+    },
+    {
+      "type": "summaryCertificate",
+      "category": "Penutup & Sertifikasi",
+      "narration": "Anda telah menyelesaikan seluruh materi orientasi. Jika skor uji pemahaman Anda mencapai delapan puluh persen, isi nama dan nomor induk pegawai untuk mencetak sertifikat orientasi. Terima kasih telah mengikuti modul ini.",
+      "title": "Penutup dan Sertifikasi",
+      "heroTitle": "Orientasi Selesai",
+      "lead": "Terima kasih telah menyelesaikan modul orientasi karyawan baru.",
+      "takeaways": [
+        {
+          "icon": "fact_check",
+          "title": "Berkas Dulu",
+          "desc": "Kelengkapan berkas adalah syarat pembuatan akun dan penyerahan perangkat."
+        },
+        {
+          "icon": "groups",
+          "title": "Peran Jelas",
+          "desc": "HR mengurus dokumen, atasan menetapkan target, IT menyiapkan akses."
+        },
+        {
+          "icon": "route",
+          "title": "Tiga Titik Evaluasi",
+          "desc": "Capaian ditinjau pada hari ke-30, ke-60, dan ke-90."
+        },
+        {
+          "icon": "workspace_premium",
+          "title": "Sertifikat",
+          "desc": "Cetak sertifikat A4 landscape setelah lulus uji pemahaman."
+        }
+      ],
+      "certificate": {
+        "brandName": "PT Anugerah Karya Nusantara",
+        "regPrefix": "AKN/HR/ONB",
+        "signatory": "Kepala Divisi Sumber Daya Manusia",
+        "signatoryRole": "Kepala Divisi Sumber Daya Manusia",
+        "title": "Sertifikat Orientasi Karyawan Baru"
+      },
+      "failMessage": "Anda belum melampaui ambang batas kelulusan delapan puluh persen. Silakan ulangi uji pemahaman."
+    }
+  ],
+  "glossary": [
+    {
+      "id": "term_1",
+      "istilah": "Orientasi Karyawan Baru",
+      "kategori": "Proses Kepegawaian",
+      "badgeColor": "bg-blue-100 text-brand-primary dark:bg-brand-primary/20 dark:text-brand-lightBlue",
+      "pengertian": "Rangkaian kegiatan terstruktur untuk memperkenalkan karyawan baru pada kebijakan, budaya kerja, dan alat kerja perusahaan.",
+      "catatan": "Berlangsung dari sebelum hari pertama sampai hari ke-90."
+    },
+    {
+      "id": "term_2",
+      "istilah": "Daftar Pantau Berkas",
+      "kategori": "Administrasi",
+      "badgeColor": "bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300",
+      "pengertian": "Catatan kekurangan dokumen kepegawaian beserta tenggat penyelesaiannya.",
+      "catatan": "Butir pada daftar ini wajib ditutup maksimal tujuh hari kerja."
+    },
+    {
+      "id": "term_3",
+      "istilah": "Rencana Belajar 30 Hari",
+      "kategori": "Pengembangan",
+      "badgeColor": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300",
+      "pengertian": "Dokumen kesepakatan target capaian karyawan baru pada tiga puluh hari pertama.",
+      "catatan": "Disusun bersama mentor dan ditandatangani atasan langsung."
+    },
+    {
+      "id": "term_4",
+      "istilah": "Tiket Bantuan",
+      "kategori": "Layanan Teknis",
+      "badgeColor": "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200",
+      "pengertian": "Permintaan bantuan teknis yang dicatat agar memiliki nomor, riwayat, dan waktu penyelesaian yang terukur.",
+      "catatan": "Ditutup maksimal dua hari kerja sejak tiket dibuat."
+    },
+    {
+      "id": "term_5",
+      "istilah": "Hak Akses Minimal",
+      "kategori": "Keamanan Informasi",
+      "badgeColor": "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/60 dark:text-cyan-300",
+      "pengertian": "Prinsip pemberian akses sebatas yang diperlukan untuk menjalankan tugas jabatan.",
+      "catatan": "Ditinjau ulang ketika terjadi perubahan jabatan atau peran."
+    }
+  ],
+  "tenggatCheatSheet": [
+    {
+      "value": "3 Hari Kerja",
+      "label": "Penerbitan Surat",
+      "title": "Penerbitan Penawaran Kerja",
+      "desc": "Batas waktu penerbitan surat penawaran setelah hasil seleksi disetujui.",
+      "icon": "schedule"
+    },
+    {
+      "value": "7 Hari Kerja",
+      "label": "Kelengkapan Berkas",
+      "title": "Tindak Lanjut Kekurangan Berkas",
+      "desc": "Batas waktu penutupan butir pada daftar pantau berkas.",
+      "icon": "folder_managed"
+    },
+    {
+      "value": "2 Hari Kerja",
+      "label": "Aktivasi Akun",
+      "title": "Penyiapan Akun dan Perangkat",
+      "desc": "Batas waktu penyelesaian tiket bantuan teknis.",
+      "icon": "vpn_key"
+    },
+    {
+      "value": "Hari ke-3",
+      "label": "Penunjukan Mentor",
+      "title": "Penetapan Mentor Pendamping",
+      "desc": "Batas waktu penunjukan mentor sejak hari pertama kerja.",
+      "icon": "diversity_3"
+    },
+    {
+      "value": "Hari ke-90",
+      "label": "Penilaian Akhir",
+      "title": "Penutupan Masa Percobaan",
+      "desc": "Hasil penilaian akhir disampaikan maksimal lima hari kerja setelah hari ke-90, mencakup seluruh catatan capaian dan hasil uji pemahaman.",
+      "icon": "task_alt",
+      "wide": true
+    }
+  ],
+  "hintTips": [
+    {
+      "icon": "navigation",
+      "title": "Navigasi Slide",
+      "desc": "Gunakan tombol Lanjut dan Kembali di bilah bawah atau tombol panah pada papan ketik."
+    },
+    {
+      "icon": "account_tree",
+      "title": "Diagram Alur",
+      "desc": "Pada slide peta alur, geser kanvas dan klik node untuk melihat penanggung jawab, masukan, dan keluaran."
+    },
+    {
+      "icon": "menu_book",
+      "title": "Terminologi dan Tenggat",
+      "desc": "Tombol Terminologi dan Tenggat di bagian atas dapat dibuka kapan saja selama mempelajari modul."
+    },
+    {
+      "icon": "quiz",
+      "title": "Uji Pemahaman",
+      "desc": "Capai skor minimal delapan puluh persen untuk membuka dan mencetak sertifikat orientasi."
+    }
+  ],
+  "resources": [
+    {
+      "icon": "description",
+      "title": "Dokumen Acuan",
+      "desc": "Dokumen internal yang menjadi dasar modul orientasi ini.",
+      "items": [
+        "Kebijakan Kepegawaian Perusahaan",
+        "Panduan Keselamatan Kerja",
+        "Tata Tertib Kehadiran"
+      ]
+    },
+    {
+      "icon": "folder",
+      "title": "Formulir dan Templat",
+      "desc": "Formulir yang dipakai sepanjang proses orientasi.",
+      "items": [
+        "Formulir Pemeriksaan Berkas",
+        "Daftar Pantau Kekurangan Berkas",
+        "Formulir Penilaian Masa Percobaan",
+        "Templat Rencana Belajar 30 Hari"
+      ]
+    },
+    {
+      "icon": "support_agent",
+      "title": "Saluran Bantuan",
+      "desc": "Kontak yang dapat dihubungi bila ada kendala.",
+      "items": [
+        "HR Onboarding",
+        "IT Support",
+        "Mentor Pendamping",
+        "Atasan Langsung"
+      ]
+    }
+  ]
+}
