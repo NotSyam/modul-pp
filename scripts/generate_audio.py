@@ -358,7 +358,7 @@ async def run(args):
             skipped += 1
             continue
         out_file = out_dir / f"unit_{idx}.mp3"
-        if out_file.exists() and not args.force:
+        if out_file.exists() and out_file.stat().st_size > 0 and not args.force:
             size_kb = out_file.stat().st_size / 1024
             print(f"[=] unit_{idx}.mp3 exists ({size_kb:.1f} KB) — use --force to overwrite")
             skipped += 1
