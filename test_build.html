@@ -6194,22 +6194,19 @@
         let itemBg = "";
 
         if (isCurrent) {
-          badgeBoxCls = "bg-brand-primary text-white shadow-xs dark:bg-brand-lightBlue dark:text-brand-darkSurface";
+          badgeBoxCls = "bg-brand-primary text-white shadow-xs dark:bg-brand-lightBlue dark:text-brand-darkSurface font-bold";
           itemBg = "bg-brand-primary/10 dark:bg-brand-darkSubtle border-l-4 border-brand-primary dark:border-brand-lightBlue font-semibold";
-        } else if (isCompleted) {
-          badgeBoxCls = "bg-brand-primary/10 text-brand-primary dark:bg-brand-lightBlue/20 dark:text-brand-lightBlue";
-          itemBg = "hover:bg-slate-100 dark:hover:bg-brand-darkSubtle/60";
-        } else if (isUnlocked) {
-          badgeBoxCls = "bg-slate-100 text-slate-600 dark:bg-brand-darkSubtle dark:text-slate-300";
-          itemBg = "hover:bg-slate-100 dark:hover:bg-brand-darkSubtle/60";
+        } else if (isCompleted || isUnlocked) {
+          badgeBoxCls = "bg-brand-primary/10 text-brand-primary dark:bg-brand-lightBlue/15 dark:text-brand-lightBlue group-hover:bg-brand-primary/20 dark:group-hover:bg-brand-lightBlue/25 transition-colors";
+          itemBg = "hover:bg-brand-primary/5 dark:hover:bg-brand-darkSubtle/60 text-slate-700 dark:text-slate-200";
         } else {
-          badgeBoxCls = "bg-slate-100/60 text-slate-400 dark:bg-brand-darkBorder/40 dark:text-slate-600";
-          itemBg = "opacity-45 cursor-not-allowed";
+          badgeBoxCls = "bg-slate-200/50 text-slate-400 dark:bg-brand-darkBorder/40 dark:text-slate-500";
+          itemBg = "opacity-45 cursor-not-allowed text-slate-400 dark:text-slate-500";
         }
 
         let statusIconHtml = "";
         if (isCompleted) {
-          statusIconHtml = `<span class="material-symbols-outlined text-sm text-brand-primary dark:text-brand-lightBlue shrink-0" title="Selesai">check</span>`;
+          statusIconHtml = `<span class="material-symbols-outlined text-sm text-brand-primary dark:text-brand-lightBlue shrink-0 font-bold" title="Selesai">check</span>`;
         } else if (!isUnlocked) {
           statusIconHtml = `<span class="material-symbols-outlined text-xs text-slate-400 dark:text-slate-500 shrink-0" title="Terkunci">lock</span>`;
         } else if (isCurrent) {
@@ -6217,14 +6214,14 @@
         }
 
         return `
-          <button onclick="goToSlide(${idx})" class="w-full text-left py-2 px-2.5 rounded-xl transition-all flex items-center gap-2.5 ${itemBg} ${isUnlocked ? 'cursor-pointer' : 'cursor-not-allowed'}">
+          <button onclick="goToSlide(${idx})" class="group w-full text-left py-2 px-2.5 rounded-xl transition-all flex items-center gap-2.5 ${itemBg} ${isUnlocked ? 'cursor-pointer' : 'cursor-not-allowed'}">
             <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors ${badgeBoxCls}">
               <span class="material-symbols-outlined text-base leading-none">
                 ${unitIcon}
               </span>
             </div>
             <div class="flex-1 truncate">
-              <div class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${esc(u.title)}</div>
+              <div class="text-xs ${isCurrent ? 'font-bold text-brand-primary dark:text-brand-lightBlue' : 'font-semibold text-slate-800 dark:text-slate-100 group-hover:text-brand-primary dark:group-hover:text-brand-lightBlue'} truncate transition-colors">${esc(u.title)}</div>
             </div>
             ${statusIconHtml}
             <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400 shrink-0">${esc(u.duration || '')}</span>
