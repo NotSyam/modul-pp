@@ -247,11 +247,11 @@ def prepare_text(raw: str, table: dict) -> str:
 # ────────────────────────────────────────────────────────────────────────────
 async def generate_unit_audio(unit_id, text: str, output_path: Path, voice: str, rate: str):
     import edge_tts
-    print(f"[*] unit_{unit_id}.mp3 ← {len(text)} chars | voice={voice} rate={rate}")
+    print(f"[*] unit_{unit_id}.mp3 ← {len(text)} chars | voice={voice} rate={rate}", flush=True)
     communicate = edge_tts.Communicate(text, voice, rate=rate)
     await communicate.save(str(output_path))
     size_kb = output_path.stat().st_size / 1024
-    print(f"    ✓ {output_path.name} ({size_kb:.1f} KB)")
+    print(f"    ✓ {output_path.name} ({size_kb:.1f} KB)", flush=True)
 
 
 def report_coverage(entries):
