@@ -599,6 +599,22 @@ def main():
     # ── Step 3b: header logo (dark variant / monogram fallback) ─────────────
     template = apply_logo_block(template, content, brand, logo_info, args)
 
+    # ── Step 3c: default theme mode (light/dark) ───────────────────────────
+    course_cfg = content.get("course") or {}
+    if course_cfg.get("defaultDark") is False:
+        template = template.replace(
+            '<body id="playerRoot" class="h-full w-full overflow-hidden flex flex-col font-sans bg-brand-darkBg text-slate-100 dark">',
+            '<body id="playerRoot" class="h-full w-full overflow-hidden flex flex-col font-sans bg-brand-darkBg text-slate-100">'
+        )
+        template = template.replace(
+            '<span class="material-symbols-outlined text-sm text-brand-primary dark:text-brand-lightBlue shrink-0" id="themeIcon">light_mode</span>',
+            '<span class="material-symbols-outlined text-sm text-brand-primary dark:text-brand-lightBlue shrink-0" id="themeIcon">dark_mode</span>'
+        )
+        template = template.replace(
+            '<span class="hidden xl:inline" id="themeLabel">Light</span>',
+            '<span class="hidden xl:inline" id="themeLabel">Dark</span>'
+        )
+
     # ── Step 4: inject COURSE (must be last) ────────────────────────────────
     log(args, "Step 4: Injecting COURSE data...")
     template = inject_course_data(template, content)

@@ -22,7 +22,7 @@ roughly 250–280 KB. Each module includes:
   `verificationMatrix`, `twoCardAccordion`, `docTabs`, `kpiDashboard`, `riskCards`, `quiz`,
   `summaryCertificate`, `imageGallery`, `videoEmbed`, `calloutBox`, `stepByStep`,
   `comparisonTable`, `faqAccordion`, `hotspotImage`, `branchingScenario`, `dragDropSet`
-- Dark/light theme toggle (default dark) — 4 brand presets (`ptpp`, `corporate`, `education`,
+- Dark/light theme toggle (default dark, configurable via `course.defaultDark: false`) — 4 brand presets (`ptpp`, `corporate`, `education`,
   `tech-startup`) + a custom inline palette
 - **Self-contained logo**: a `logo.png` next to `content.json` is inlined automatically (plus an
   optional `logo-dark.png` for dark mode, and a monogram badge when no file exists)
@@ -455,6 +455,12 @@ or editing renderers — it is what keeps "practice" safe to fail.
 16. **Text Rendering & Rich-Text Invariants**:
     - Typography must render crisp and antialiased across displays (`-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;`).
     - All descriptive, lead, note, and explanation text runs through `formatRichText()` to support markdown bold (`**`), italic (`*`), inline code (`` ` ``), and safe HTML formatting without breaking mathematical comparison signs (`< Rp50 Miliar`, `> 10%`).
+17. **Default Theme Configuration (`course.defaultDark`)**:
+    - By default, modules initialize in dark mode (`defaultDark: true`).
+    - When `course.defaultDark: false` is declared in `content.json`, the builder strips static `dark` classes from `<body>`, initializes `state.isDarkMode: false`, and boots in Light Mode (`#F0F4F7`) while preserving full dynamic theme switching via `#btnThemeToggle`.
+18. **Certificate Live Preview & Print Contract**:
+    - The `summaryCertificate` slide renders an in-slide live certificate preview card with real-time recipient identity (`state.participantName`), NIP, deterministic registration number (`getCertRegNumber()`), issue date, and evaluation score.
+    - `@media print` ensures `#certificatePrintArea` renders as `display: flex` with clean A4 landscape bounds.
 
 ## Output format
 

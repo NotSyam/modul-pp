@@ -777,6 +777,18 @@ def main():
             errors.append(f"printCertificate() threw: {e}")
             print(f"  ✗ printCertificate() threw: {e}")
 
+        # Assert certificatePrintArea display in @media print
+        page.emulate_media(media="print")
+        print_display = page.evaluate(
+            "() => window.getComputedStyle(document.getElementById('certificatePrintArea')).display"
+        )
+        page.emulate_media(media=None)
+        if print_display != "flex":
+            errors.append(f"certificatePrintArea display in @media print is {print_display!r}, expected 'flex'")
+            print(f"  ✗ certificatePrintArea display in @media print is {print_display!r} (expected 'flex')")
+        else:
+            print("  ✓ certificatePrintArea display in @media print is 'flex'")
+
         # ── Modals ──────────────────────────────────────────────────────────
         print("\n=== Modal tests ===")
         for fn, modal in (("openTenggatModal", "modalTenggat"),

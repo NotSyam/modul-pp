@@ -166,6 +166,10 @@
       background-color: #FFFFFF !important;
       border-color: #D9E3EA !important;
     }
+    body:not(.dark) #sidebarTabHeader {
+      background-color: #F8FAFC !important;
+      border-color: #E2E8F0 !important;
+    }
     body:not(.dark) #stageBackdrop {
       background-color: #F0F4F7 !important;
     }
@@ -275,8 +279,10 @@
     }
 
     /* Certificate Screen Suppression (Prevent leakage if Tailwind CDN fails or is offline) */
-    #certificatePrintArea:not([data-cert-preview="1"]) {
-      display: none !important;
+    @media screen {
+      #certificatePrintArea:not([data-cert-preview="1"]) {
+        display: none !important;
+      }
     }
 
     /* Print to PDF Certificate Styles */
@@ -297,10 +303,13 @@
       body * {
         visibility: hidden;
       }
-      #certificatePrintArea, #certificatePrintArea * {
+      #certificatePrintArea,
+      #certificatePrintArea:not([data-cert-preview="1"]),
+      #certificatePrintArea * {
         visibility: visible;
       }
-      #certificatePrintArea {
+      #certificatePrintArea,
+      #certificatePrintArea:not([data-cert-preview="1"]) {
         position: fixed;
         left: 0;
         top: 0;
@@ -2548,7 +2557,7 @@
       branching: {},
       // dragDropSet placements (per slide index), never scored
       dragdrop: {},
-      isDarkMode: true,
+      isDarkMode: (typeof COURSE !== 'undefined' && COURSE && COURSE.course && typeof COURSE.course.defaultDark === 'boolean') ? COURSE.course.defaultDark : true,
       isMobileDrawerOpen: false,
       isDesktopSidebarCollapsed: false,
       selectedSwimlaneRole: "Semua"
@@ -2580,6 +2589,7 @@
           quizScore: state.quizScore,
           quizCompleted: state.quizCompleted,
           quizPassed: state.quizPassed,
+          isDarkMode: state.isDarkMode,
           updatedAt: Date.now()
         };
         localStorage.setItem(key, JSON.stringify(payload));
@@ -2620,6 +2630,9 @@
         if (typeof saved.quizScore === "number") state.quizScore = saved.quizScore;
         if (typeof saved.quizCompleted === "boolean") state.quizCompleted = saved.quizCompleted;
         if (typeof saved.quizPassed === "boolean") state.quizPassed = saved.quizPassed;
+        if (typeof saved.isDarkMode === "boolean" && (!COURSE.course || !COURSE.course.devMode)) {
+          state.isDarkMode = saved.isDarkMode;
+        }
       } catch (err) {
         // Ignore read/parse errors
       }
@@ -4097,14 +4110,13 @@
     function renderSummaryCertificate(s) {
       const passingScore = (COURSE.course && COURSE.course.passingScore) || 80;
       const isBypassed = !!(COURSE.course && (COURSE.course.bypassQuiz || COURSE.course.devMode));
-      if (isBypassed && !state.quizCompleted) {
-        state.quizScore = (typeof state.quizScore === 'number' && state.quizScore > 0) ? state.quizScore : 100;
-        state.quizPassed = true;
-        if (!state.participantName) state.participantName = "Nama Peserta Contoh";
-        if (!state.participantNIP) state.participantNIP = "12345678";
-      }
       const passed = isBypassed || (state.quizCompleted && state.quizScore >= passingScore);
       const attempted = isBypassed || !!state.quizCompleted;
+      const displayScore = (state.quizCompleted && typeof state.quizScore === 'number')
+        ? state.quizScore
+        : (isBypassed ? 100 : (state.quizScore || 0));
+      const participantName = state.participantName || (isBypassed ? "Nama Peserta Contoh" : "");
+      const participantNIP = state.participantNIP || (isBypassed ? "12345678" : "");
       // Generic, data-driven status line — derived from pass state (never hard-coded SOP text).
       const statusLine = passed
         ? (isBypassed && !state.quizCompleted ? "STATUS: KOMPETEN (LULUS - DEV BYPASS)" : (s.statusPassLabel || "STATUS: KOMPETEN (LULUS)"))
@@ -4133,7 +4145,7 @@
               ${s.lead ? `<div class="mt-2 text-xs text-blue-100 leading-relaxed">${formatRichText(s.lead)}</div>` : ""}
             </div>
             <div class="text-center px-6 py-4 rounded-xl bg-white/10 border border-white/20 shrink-0">
-              <p class="text-4xl font-black font-mono">${attempted ? state.quizScore + "%" : "–"}</p>
+              <p class="text-4xl font-black font-mono">${attempted ? displayScore + "%" : "–"}</p>
               <p class="text-[10px] text-blue-100 uppercase tracking-wider mt-1">Skor Kuis</p>
             </div>
           </div>
@@ -4146,15 +4158,69 @@
               </div>` : ""}
             ${passed ? `
               <div class="${UI.card} p-5 space-y-4">
-                <p class="${UI.label}">Data Identitas Peserta (Untuk Sertifikat)</p>
+                <div class="flex items-center justify-between">
+                  <p class="${UI.label}">Data Identitas Peserta (Untuk Sertifikat)</p>
+                  <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-xs">verified</span> Sertifikat Terbuka
+                  </span>
+                </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Nama Lengkap Peserta:</label>
-                    <input id="certInputName" type="text" value="${esc(state.participantName)}" placeholder="Masukkan Nama Lengkap Anda" oninput="state.participantName=this.value; saveProgress();" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-darkBorder bg-white dark:bg-brand-darkSurface text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                    <input id="certInputName" type="text" value="${esc(participantName)}" placeholder="Masukkan Nama Lengkap Anda" oninput="state.participantName=this.value; saveProgress(); updateCertLivePreview();" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-darkBorder bg-white dark:bg-brand-darkSurface text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary">
                   </div>
                   <div>
                     <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">NIP / Unit Kerja:</label>
-                    <input id="certInputNip" type="text" value="${esc(state.participantNIP)}" placeholder="Contoh: 12345 / Divisi" oninput="state.participantNIP=this.value; saveProgress();" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-darkBorder bg-white dark:bg-brand-darkSurface text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                    <input id="certInputNip" type="text" value="${esc(participantNIP)}" placeholder="Contoh: 12345 / Divisi" oninput="state.participantNIP=this.value; saveProgress(); updateCertLivePreview();" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 dark:border-brand-darkBorder bg-white dark:bg-brand-darkSurface text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                  </div>
+                </div>
+
+                <!-- Live On-Screen Certificate Preview Frame -->
+                <div class="mt-4 pt-3 border-t border-slate-200 dark:border-brand-darkBorder">
+                  <div class="flex items-center justify-between mb-2">
+                    <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm text-brand-primary dark:text-brand-lightBlue">workspace_premium</span>
+                      Preview Sertifikat Kelulusan
+                    </p>
+                    <span class="text-[10px] text-slate-400 font-mono">Format A4 Landscape</span>
+                  </div>
+                  <div class="w-full rounded-xl border-4 border-double border-brand-primary/60 dark:border-brand-lightBlue/50 bg-gradient-to-b from-white to-slate-50 dark:from-brand-darkSurface dark:to-brand-darkSubtle p-5 sm:p-6 text-center text-slate-800 dark:text-slate-100 shadow-inner relative overflow-hidden">
+                    <div class="flex justify-between items-start border-b border-slate-200 dark:border-brand-darkBorder pb-3 text-left">
+                      <div>
+                        <p class="text-xs sm:text-sm font-black text-brand-primary dark:text-brand-lightBlue tracking-wider">${esc(brandName || "PT PP (Persero) Tbk")}</p>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400">${esc((COURSE.brand && COURSE.brand.orgDivision) || "")}</p>
+                      </div>
+                      <div class="text-right">
+                        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-100 dark:bg-brand-primary/30 text-brand-primary dark:text-brand-lightBlue">${esc(moduleCode || "KOMPETEN")}</span>
+                        <p class="text-[10px] text-slate-400 font-mono mt-1" id="certPreviewReg">No. Reg: ${esc(getCertRegNumber())}</p>
+                      </div>
+                    </div>
+                    <div class="my-5">
+                      <p class="text-[10px] font-semibold tracking-widest uppercase text-slate-400 dark:text-slate-500">SERTIFIKAT KELULUSAN RESMI E-LEARNING</p>
+                      <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-2">Diberikan secara sah kepada:</p>
+                      <h3 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white mt-1 transition-all" id="certPreviewRecipientName">${esc(participantName || "Peserta Pelatihan")}</h3>
+                      <p class="text-[11px] font-mono text-slate-600 dark:text-slate-300 mt-0.5" id="certPreviewRecipientNIP">NIP: ${esc(participantNIP || "-")} • ${esc(brandName || "PT PP (Persero) Tbk")}</p>
+                      <div class="mt-3 text-xs text-slate-600 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">
+                        Telah menyelesaikan modul pembelajaran dan dinyatakan <strong class="text-emerald-600 dark:text-emerald-400 font-bold">LULUS UJI PEMAHAMAN (KOMPETEN)</strong> pada:
+                        <p class="font-extrabold text-brand-primary dark:text-brand-lightBlue mt-1">${esc(COURSE.course.title || "")}</p>
+                      </div>
+                      <div class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-brand-primary/20 border border-brand-primary/30 text-brand-primary dark:text-brand-lightBlue text-[11px] font-bold font-mono">
+                        <span>Nilai Evaluasi: ${displayScore}%</span>
+                        <span>•</span>
+                        <span class="font-sans font-normal text-slate-600 dark:text-slate-300">Ambang Batas ${passingScore}%</span>
+                      </div>
+                    </div>
+                    <div class="flex justify-between items-end border-t border-slate-200 dark:border-brand-darkBorder pt-3 text-[10px] text-slate-500 dark:text-slate-400 text-left">
+                      <div>
+                        <p class="font-bold text-slate-700 dark:text-slate-300">Tanggal Terbit:</p>
+                        <p class="font-mono">${new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                      </div>
+                      <div class="text-center">
+                        <div class="w-24 border-b border-slate-400 dark:border-slate-600 pb-5 mx-auto"></div>
+                        <p class="font-bold text-slate-800 dark:text-slate-200 mt-1">${esc((COURSE.brand && COURSE.brand.signatory) || "Management")}</p>
+                        <p class="text-[9px] text-slate-400">${esc(brandName || "PT PP (Persero) Tbk")}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>` : (s.failMessage ? `
@@ -6108,7 +6174,8 @@
         'party_mode': 'workspace_premium',
         'handshake': 'groups',
         'sentiment_satisfied': 'sentiment_very_satisfied',
-        'check': 'check_circle'
+        'check': 'check_circle',
+        'target': 'track_changes'
       };
 
       container.innerHTML = COURSE.units.map((u, idx) => {
@@ -6130,13 +6197,13 @@
           badgeBoxCls = "bg-brand-primary text-white shadow-xs dark:bg-brand-lightBlue dark:text-brand-darkSurface";
           itemBg = "bg-brand-primary/10 dark:bg-brand-darkSubtle border-l-4 border-brand-primary dark:border-brand-lightBlue font-semibold";
         } else if (isCompleted) {
-          badgeBoxCls = "bg-brand-primary/10 text-brand-primary dark:bg-brand-lightBlue/15 dark:text-brand-lightBlue";
+          badgeBoxCls = "bg-brand-primary/10 text-brand-primary dark:bg-brand-lightBlue/20 dark:text-brand-lightBlue";
           itemBg = "hover:bg-slate-100 dark:hover:bg-brand-darkSubtle/60";
         } else if (isUnlocked) {
-          badgeBoxCls = "bg-slate-100 text-slate-500 dark:bg-brand-darkSubtle dark:text-slate-400";
+          badgeBoxCls = "bg-slate-100 text-slate-600 dark:bg-brand-darkSubtle dark:text-slate-300";
           itemBg = "hover:bg-slate-100 dark:hover:bg-brand-darkSubtle/60";
         } else {
-          badgeBoxCls = "bg-slate-100/60 text-slate-300 dark:bg-brand-darkBorder/30 dark:text-slate-600";
+          badgeBoxCls = "bg-slate-100/60 text-slate-400 dark:bg-brand-darkBorder/40 dark:text-slate-600";
           itemBg = "opacity-45 cursor-not-allowed";
         }
 
@@ -6209,12 +6276,16 @@
         if (icon) icon.innerText = "dark_mode";
         if (label) label.innerText = "Dark";
       }
+      if (typeof updateOutlineUI === 'function') {
+        updateOutlineUI();
+      }
     }
 
     function toggleTheme() {
       playTone('click');
       state.isDarkMode = !state.isDarkMode;
       applyTheme();
+      saveProgress();
     }
 
     function toggleFullscreen() {
@@ -6250,6 +6321,27 @@
       return String(hash % Math.pow(10, digits)).padStart(digits, "0");
     }
 
+    function getCertRegNumber() {
+      const cfg = (COURSE.course && COURSE.course.certificate) || {};
+      const brand = COURSE.brand || {};
+      const now = new Date();
+      return String(cfg.regNumberFormat || "{prefix}/{year}/{seq}")
+        .replace("{prefix}", brand.certRegPrefix || "REG")
+        .replace("{year}", String(now.getFullYear()))
+        .replace("{seq}", certSequenceNumber());
+    }
+
+    function updateCertLivePreview() {
+      const nameEl = document.getElementById("certPreviewRecipientName");
+      if (nameEl) nameEl.innerText = state.participantName || "Peserta Pelatihan";
+      const nipEl = document.getElementById("certPreviewRecipientNIP");
+      const brand = COURSE.brand || {};
+      const brandName = brand.orgName || (COURSE.course && COURSE.course.brandName) || "PT PP (Persero) Tbk";
+      if (nipEl) nipEl.innerText = `NIP: ${state.participantNIP || "-"} • ${brandName}`;
+      const regEl = document.getElementById("certPreviewReg");
+      if (regEl) regEl.innerText = `No. Reg: ${getCertRegNumber()}`;
+    }
+
     // Fills the certificate nodes from current state. Shared by the real print
     // flow and the #cert-preview dev mode so both use one code path.
     function fillCertificate() {
@@ -6261,15 +6353,13 @@
       setCertText("certRecipientName", state.participantName || "Peserta Pelatihan");
       setCertText("certRecipientNIP", `NIP: ${state.participantNIP || "-"} • ${brand.orgName || ""}`);
 
-      const regNumber = String(cfg.regNumberFormat || "{prefix}/{year}/{seq}")
-        .replace("{prefix}", brand.certRegPrefix || "REG")
-        .replace("{year}", String(now.getFullYear()))
-        .replace("{seq}", certSequenceNumber());
+      const regNumber = getCertRegNumber();
       setCertText("certNumberLabel", `No. Reg: ${regNumber}`);
 
       const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
       setCertText("certDateVal", now.toLocaleDateString(cfg.dateLocale || 'id-ID', dateOptions));
 
+      updateCertLivePreview();
       return document.getElementById("certificatePrintArea");
     }
 
@@ -6795,13 +6885,13 @@
     // ========================================================================
     window.addEventListener("DOMContentLoaded", () => {
       initSCORM();
+      loadProgress();
       applyTheme();
       syncPreviewModeBadge();
       initCheatSheet();
       initTerminologi();
       initHintTips();
       initResources();
-      loadProgress();
       const initialSlide = (typeof state.currentSlide === 'number' && state.currentSlide >= 0 && state.currentSlide < COURSE.units.length) ? state.currentSlide : 0;
       goToSlide(initialSlide);
       updateOutlineUI();
