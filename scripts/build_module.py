@@ -445,7 +445,32 @@ def render_certificate_template(template: str, content: dict, brand: dict, cert:
 
     path = Path(rel)
     if not path.is_absolute():
-        path = (content_dir / path).resolve()
+        candidate = (content_dir / path).resolve()
+        if candidate.exists():
+            path = candidate
+        else:
+            # Fallback to skill root / assets / built-in template aliases
+            skill_root = (Path(args.skill_root).resolve()
+                          if (args and getattr(args, "skill_root", None))
+                          else Path(__file__).parent.parent.resolve())
+            aliases = {
+                "classic": "certificate.template.classic.html",
+                "opsi1": "certificate.template.classic.html",
+                "opsi-1": "certificate.template.classic.html",
+                "corporate": "certificate.template.classic.html",
+                "example": "certificate.template.example.html",
+                "modern": "certificate.template.modern.html",
+            }
+            target_name = aliases.get(rel.lower(), rel)
+            cand1 = (skill_root / target_name).resolve()
+            cand2 = (skill_root / "assets" / target_name).resolve()
+            if cand1.exists():
+                path = cand1
+            elif cand2.exists():
+                path = cand2
+            else:
+                path = candidate
+
     if not path.exists():
         fail(f"course.certificate.template not found: {path}")
 
@@ -637,7 +662,7 @@ def main():
     # ── Write output ────────────────────────────────────────────────────────
     out_path = Path(args.output).resolve()
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(template, encoding="utf-8")
+    out_path.write_text(template, encoding="utf-8", newline="\n")
 
     slides = content.get("slides", [])
     type_counts = {}

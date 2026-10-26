@@ -45,6 +45,7 @@ modul-pp/
 │   ├── shell.template.html      ← the canonical engine (edit directly, then run the gates)
 │   ├── content.schema.json      ← JSON Schema for content.json
 │   ├── brand.profiles.json      ← 4 brand presets
+│   ├── certificate.template.classic.html  ← official PT PP Klasik Korporat template (Opsi 1)
 │   ├── certificate.template.example.html  ← starting point for a custom certificate
 │   ├── sample.content.json      ← 21-slide example covering every slide type
 │   ├── sample.slide_breakdown.md
@@ -297,8 +298,10 @@ The certificate is printed through the browser (`window.print()` → "Save as PD
 3. **Edge-to-edge / print-shop design** — `printPadding: "0"` plus `pageWidthMm`/`pageHeightMm` for a
    non-standard page, and paint your own borders in the template.
 
-Two ready starting points ship with the skill: `assets/certificate.template.example.html` (portrait
-award card) and `assets/certificate.template.modern.html` (landscape, full-bleed navy sidebar).
+Ready starting points ship with the skill:
+- `assets/certificate.template.classic.html` (alias: `"classic"`) — Official PT PP Klasik Korporat layout (Opsi 1) with double-frame border, geometric corners, official logo, and 3-column verification/signatory dock. Recommended with `"pageSize": "A4 landscape"` and `"printPadding": "0"`.
+- `assets/certificate.template.example.html` (alias: `"example"`) — Portrait award card.
+- `assets/certificate.template.modern.html` (alias: `"modern"`) — Landscape, full-bleed navy sidebar.
 
 **Preview without passing the quiz:** open the built module with `#cert-preview` appended to the URL
 (`file:///.../index.html#cert-preview`). The engine fills sample participant data, reveals the

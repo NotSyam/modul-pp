@@ -362,6 +362,31 @@ def main():
         else:
             record("custom certificate template applies", False, "example template missing")
 
+        classic_template = root / "assets" / "certificate.template.classic.html"
+        if classic_template.exists():
+            classic_content = minimal_content(course={
+                "code": "CERT/2", "title": "Classic Cert Test", "totalUnits": 1, "passingScore": 80,
+                "certificate": {"template": "classic", "pageSize": "A4 landscape", "printPadding": "0"},
+            })
+            classic_json = tmp / "cert_classic.json"
+            classic_html = tmp / "cert_classic.html"
+            write_json(classic_json, classic_content)
+            ok, out, rc = run([PY, str(build_py), "--content", str(classic_json), "--output", str(classic_html),
+                               "--skill-root", str(root), "--quiet", "--no-contrast-check"])
+            if ok and classic_html.exists():
+                text = classic_html.read_text(encoding="utf-8")
+                no_tokens = "{{" not in text
+                has_ids = all(f'id="{i}"' in text for i in
+                              ("certRecipientName", "certRecipientNIP", "certScoreVal",
+                               "certDateVal", "certNumberLabel"))
+                ok2, vout, _ = run([PY, str(verify_py), str(classic_html), "--content", str(classic_json)])
+                record("classic corporate certificate applies via alias", no_tokens and has_ids and ok2,
+                       f"tokens_left={not no_tokens}, ids={has_ids}, verify_rc={0 if ok2 else 1}")
+            else:
+                record("classic corporate certificate applies via alias", False, "build failed")
+        else:
+            record("classic corporate certificate applies via alias", False, "classic template missing")
+
         # ── 8. narration pipeline ──────────────────────────────────────────
         print("\n[7] Narration pipeline")
         if audio_py.exists():

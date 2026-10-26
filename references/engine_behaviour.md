@@ -231,8 +231,10 @@ There are four ways to review and test modules without being blocked by gate tim
   reveals `#certificatePrintArea` at true page size over the player, and adds a `.no-print` badge.
   `fillCertificate()` is shared by the preview and the real print, so the preview cannot drift from
   the printed output. Disable it by removing the hash; nothing is persisted.
-- Shipped templates: `assets/certificate.template.example.html` (portrait award card) and
-  `assets/certificate.template.modern.html` (landscape, full-bleed navy sidebar).
+- Shipped templates:
+  - `assets/certificate.template.classic.html` (alias: `"classic"`) — Official PT PP (Persero) Tbk Klasik Korporat layout: corporate blue double-frame, geometric corner accents, official PT PP logo, Plus Jakarta Sans typography, and 3-column verification/signatory dock. Recommended with `pageSize: "A4 landscape"` and `printPadding: "0"`.
+  - `assets/certificate.template.example.html` (alias: `"example"`) — Portrait award card.
+  - `assets/certificate.template.modern.html` (alias: `"modern"`) — Landscape with full-bleed navy sidebar.
 
 ## 7. Google Apps Script receiver (idempotent, upsert-highest)
 

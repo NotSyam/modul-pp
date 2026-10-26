@@ -763,48 +763,252 @@
   <!-- ========================================================================= -->
   <div id="certificatePrintArea" class="hidden">
     <!-- CERT-TEMPLATE-START -->
-    <div class="w-full h-full border-8 border-double border-brand-primary p-8 flex flex-col justify-between text-center font-sans bg-white relative">
-      <div class="flex justify-between items-center border-b-2 border-slate-300 pb-4">
-        <div class="text-left">
-          <h2 class="text-2xl font-black tracking-wider text-brand-primary">PT PP (Persero) Tbk</h2>
-          <p class="text-xs text-slate-500 font-medium">Human Capital Management & Quality Assurance</p>
+    <style>
+      .cert-sheet-builtin {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background: #ffffff;
+        color: #0F172A;
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        display: flex;
+        flex-direction: column;
+      }
+      .cert-sheet-builtin * {
+        position: relative;
+        box-sizing: border-box;
+      }
+      .cert-frame-builtin {
+        position: absolute;
+        inset: 8mm;
+        border: .75mm solid #1960AA;
+        pointer-events: none;
+      }
+      .cert-frame-builtin::after {
+        content: '';
+        position: absolute;
+        inset: 2.4mm;
+        border: .22mm solid rgba(25, 96, 170, 0.42);
+      }
+      .cert-corner-builtin {
+        position: absolute;
+        width: 7mm;
+        height: 7mm;
+        border: .75mm solid #1960AA;
+        pointer-events: none;
+      }
+      .cert-cb1 { top: 8mm; left: 8mm; border-right: 0; border-bottom: 0; }
+      .cert-cb2 { top: 8mm; right: 8mm; border-left: 0; border-bottom: 0; }
+      .cert-cb3 { bottom: 8mm; left: 8mm; border-right: 0; border-top: 0; }
+      .cert-cb4 { bottom: 8mm; right: 8mm; border-left: 0; border-top: 0; }
+      .cert-cb1::after, .cert-cb2::after, .cert-cb3::after, .cert-cb4::after {
+        content: '';
+        position: absolute;
+        width: 2.6mm;
+        height: 2.6mm;
+        background: #1960AA;
+      }
+      .cert-cb1::after { top: 2.6mm; left: 2.6mm; }
+      .cert-cb2::after { top: 2.6mm; right: 2.6mm; }
+      .cert-cb3::after { bottom: 2.6mm; left: 2.6mm; }
+      .cert-cb4::after { bottom: 2.6mm; right: 2.6mm; }
+      .cert-inner-builtin {
+        position: absolute;
+        inset: 8mm;
+        padding: 10.5mm 20mm 8.5mm;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: space-between;
+      }
+      .cert-logo-builtin {
+        display: block;
+        height: 13.5mm;
+        width: auto;
+        object-fit: contain;
+      }
+      .cert-org-builtin {
+        margin-top: 3.5mm;
+        font-size: 2.75mm;
+        letter-spacing: .34em;
+        color: #64748B;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .cert-rule-builtin {
+        width: 34mm;
+        height: .3mm;
+        background: #C7D6E6;
+        margin: 3.5mm auto 0;
+      }
+      .cert-h1-builtin {
+        margin: 5.5mm 0 0;
+        font-size: 5.2mm;
+        letter-spacing: .44em;
+        font-weight: 700;
+        color: #1960AA;
+        text-indent: .44em;
+        text-transform: uppercase;
+      }
+      .cert-sub-builtin {
+        margin: 2mm 0 0;
+        font-size: 2.85mm;
+        letter-spacing: .2em;
+        color: #94A3B8;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .cert-name-builtin {
+        margin: 4mm 0 0;
+        font-size: 11.5mm;
+        font-weight: 800;
+        letter-spacing: -.02em;
+        line-height: 1.05;
+        color: #0B2545;
+      }
+      .cert-nip-builtin {
+        margin-top: 1.2mm;
+        font-size: 2.7mm;
+        font-family: 'JetBrains Mono', monospace;
+        color: #64748B;
+        letter-spacing: .05em;
+      }
+      .cert-hair-builtin {
+        width: 100%;
+        height: .22mm;
+        background: #DCE6F1;
+        margin: 4mm 0 0;
+      }
+      .cert-lead-builtin {
+        margin: 3.8mm 0 0;
+        font-size: 3.5mm;
+        line-height: 1.65;
+        color: #334155;
+        max-width: 200mm;
+      }
+      .cert-stage-builtin {
+        margin: 3mm 0 0;
+        font-size: 4.4mm;
+        font-weight: 800;
+        letter-spacing: .06em;
+        color: #1960AA;
+        line-height: 1.3;
+      }
+      .cert-mods-builtin {
+        margin: 2.4mm 0 0;
+        font-size: 2.75mm;
+        letter-spacing: .03em;
+        color: #64748B;
+        line-height: 1.65;
+        max-width: 215mm;
+      }
+      .cert-count-builtin {
+        margin: 2mm 0 0;
+        font-size: 2.65mm;
+        letter-spacing: .15em;
+        color: #94A3B8;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .cert-bottom-builtin {
+        margin-top: auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: end;
+        gap: 8mm;
+      }
+      .cert-sig-builtin {
+        text-align: center;
+      }
+      .cert-sig-builtin .line {
+        height: .28mm;
+        background: #94A3B8;
+        margin-bottom: 2.2mm;
+      }
+      .cert-sig-builtin .nm {
+        font-size: 3.2mm;
+        font-weight: 700;
+        color: #0B2545;
+        display: inline-block;
+      }
+      .cert-sig-builtin .rl {
+        font-size: 2.5mm;
+        color: #94A3B8;
+        margin-top: .7mm;
+        letter-spacing: .06em;
+      }
+      .cert-mid-builtin {
+        text-align: center;
+      }
+      .cert-mid-builtin .id {
+        font-size: 2.55mm;
+        letter-spacing: .16em;
+        color: #64748B;
+      }
+      .cert-mid-builtin .id span {
+        font-family: 'JetBrains Mono', monospace;
+        padding: 0 1.2mm;
+        font-weight: 600;
+      }
+      .cert-mid-builtin .qr {
+        width: 14mm;
+        height: 14mm;
+        margin: 1.8mm auto 0;
+        display: block;
+      }
+      .cert-note-builtin {
+        font-size: 2.3mm;
+        color: #A8B6C7;
+        margin-top: 1.2mm;
+        letter-spacing: .04em;
+      }
+    </style>
+    <div class="cert-sheet-builtin">
+      <div class="cert-frame-builtin"></div>
+      <div class="cert-corner-builtin cert-cb1"></div>
+      <div class="cert-corner-builtin cert-cb2"></div>
+      <div class="cert-corner-builtin cert-cb3"></div>
+      <div class="cert-corner-builtin cert-cb4"></div>
+      <div class="cert-inner-builtin">
+        <div>
+          <img class="cert-logo-builtin" src="data:image/png;base64,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" alt="PT PP (Persero) Tbk" />
+          <div class="cert-org-builtin">PT PP (Persero) Tbk &nbsp;&middot;&nbsp; E-LEARNING PORTAL</div>
+          <div class="cert-rule-builtin"></div>
         </div>
-        <div class="text-right">
-          <span class="text-xs font-bold uppercase tracking-wider bg-blue-100 text-brand-primary px-3 py-1 rounded">AKN/HR/ONB-014 REV-1</span>
-          <p class="text-xs text-slate-500 mt-1 font-mono" id="certNumberLabel">No. Reg: —</p>
-        </div>
-      </div>
-
-      <div class="my-auto py-4">
-        <p class="text-xs font-semibold tracking-widest uppercase text-slate-400">SERTIFIKAT KELULUSAN RESMI E-LEARNING</p>
-        <p class="text-xs text-slate-500 mt-2">Diberikan secara sah kepada:</p>
-        <h1 class="text-3xl font-black text-slate-900 mt-1" id="certRecipientName">Peserta Pelatihan</h1>
-        <p class="text-xs font-mono font-semibold text-slate-600 mt-0.5" id="certRecipientNIP">NIP: - • PT PP (Persero) Tbk</p>
         
-        <div class="mt-4 max-w-xl mx-auto">
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Telah menyelesaikan seluruh modul dan dinyatakan <strong>LULUS UJI PEMAHAMAN (KOMPETEN)</strong> Standard Operating Procedure:
-          </p>
-          <p class="text-base font-extrabold text-brand-primary mt-1">
-            Program Orientasi Karyawan Baru
-          </p>
+        <div>
+          <div class="cert-h1-builtin">SERTIFIKAT KELULUSAN RESMI E-LEARNING</div>
+          <div class="cert-sub-builtin">CERTIFICATE OF COMPLETION &nbsp;&middot;&nbsp; Diberikan secara sah kepada:</div>
+          <div class="cert-name-builtin" id="certRecipientName">Nama Peserta</div>
+          <div class="cert-nip-builtin" id="certRecipientNIP">NIP: - &bull; PT PP (Persero) Tbk</div>
+          <div class="cert-hair-builtin"></div>
+          <p class="cert-lead-builtin">Telah menyelesaikan seluruh modul dan dinyatakan <strong>LULUS UJI PEMAHAMAN (KOMPETEN)</strong> <strong>Standard Operating Procedure</strong>:</p>
+          <div class="cert-stage-builtin">Program Orientasi Karyawan Baru</div>
+          <div class="cert-mods-builtin">KODE: AKN/HR/ONB-014 REV-1 &nbsp;&middot;&nbsp; Human Capital Management & Quality Assurance &nbsp;&middot;&nbsp; STANDAR OPERASIONAL PROSEDUR</div>
+          <div class="cert-count-builtin"><span style="color:#1960AA;font-weight:800;">Skor Pemahaman: <span id="certScoreVal">100</span>%</span> &nbsp;&middot;&nbsp; Lulus Evaluasi Pemahaman (Ambang Batas 80%)</div>
         </div>
 
-        <div class="mt-4 inline-block px-4 py-1.5 rounded-full bg-blue-50 border border-brand-primary/30 text-brand-primary font-bold text-xs">
-          Skor Pemahaman: <span id="certScoreVal">100</span>% • Lulus Evaluasi Pemahaman (Ambang Batas 80%)
-        </div>
-      </div>
-
-      <div class="flex justify-between items-end border-t border-slate-200 pt-4 text-xs text-slate-600">
-        <div class="text-left">
-          <p class="font-bold">Tanggal Kelulusan:</p>
-          <p id="certDateVal">—</p>
-          <p class="text-[10px] text-slate-400 mt-0.5">Sistem Autentikasi E-Learning HCM</p>
-        </div>
-        <div class="text-center">
-          <div class="w-32 border-b border-slate-400 pb-10 mx-auto"></div>
-          <p class="font-bold mt-1 text-slate-800">SVP - Operation Control & SCC</p>
-          <p class="text-[10px] text-slate-500">PT PP (Persero) Tbk</p>
+        <div class="cert-bottom-builtin">
+          <div class="cert-sig-builtin">
+            <div class="line"></div>
+            <div class="nm">SVP - Operation Control & SCC</div>
+            <div class="rl">Human Capital Management & Quality Assurance &bull; PT PP (Persero) Tbk</div>
+          </div>
+          <div class="cert-mid-builtin">
+            <div class="id">NO. <span id="certNumberLabel">No. Reg: &mdash;</span></div>
+            <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjQAAAI0AQMAAAAwRSFAAAAABlBMVEXw+P8LJUX0pDeiAAAAAXRSTlMAQObYZgAAA1tJREFUeNrtnVFq5TAMRcVswPvfpXfg6WsT+175vdiGGQaGY/qRpsmhCIQt6UqJYLFYf2+V1tfrul53vv5yXdf4+fV1p11/+rpvL8avP/TfwIHzP3G+PaVflDYcStzn5053tNdF9RexMxw4n/yrXJtX36Qu56rR/Ws89vNMTS9iZzhwVv51u9V1bqy3u91OlzY4/AsOnDP/qvf21OOvNpxONzX8Cw6c4/jrdq6+W/Vn9AyZX8TOcOBs5A+PfsgfwoFztCxh6Nn4kdnoexx2hgNnx616vr0fBSMkQT+cq/9oOIad4cBZ71lVnKg1C7LE9YaX4V9w4GzEXykP3yvIVkoulqjv/kh+Aw6c/f3LCs1T5Su9dcdi2BkOnMcUfWnJ3T6Vw8bzt14RO8OB8/F8WHPMlRWG+liTMlkhPw8Hzkn9y+Ms9TvLaVTJMXI+hAPnMf4ah0C9Fp3hcKVi/Sn3K9gZDpyPxS+tc43gq1n8pcGXZvKxMxw4i/irmWxeHS3l51N/CnaGA2ez/tV1Gt2hhlpDdB16mEQ/DwfOWhw1VbVSKXmk4ktLQinyG3DgrOvLLbd6aXZRNRvpYfwLDpxl/KUl46zslVZK03gU9Idw4OyJ50tzSYbd1ykcEZF7wbAzHDiPIwLsNDhf13hbBWP/ggNnX8KRUoXpoGhaX/S9cOCc6OctyPI6sg3oaOgP4cA5mx9l+g3vAksNXybeuErM2BkOnKf8Rhtip9CExiyO0mANO8OBs+VfzTPw7nopB5LkHNgZDpyn5GExCb0NEY1IAkXsDAfOUX1ZG76SqCMrfps9f58SsTMcOE/9yzqhV5Xz2racJ2YX9FFw4GwN35jTF/YtFem7zBsZ/gUHzjJFX6d0ve9c3ddSXYzzIRw4m1mONJ43Tb+xGjTxFxw4savfiLAPD40jorZYThPbmM8GB84y/rL0xfTB5TEHW8tkEoJhZzhwDr4FluRP2ln5tksFO8OBs5x/6LM15u/G2sQbG5qNneHAWX2/cupAeZu9z19XYf+CA2fn+8s+IsD6wqZvLtv0AOwMB87G981j7v3XtKHnPZh/CAfO2f4VNnMjz9CewzHmH8KBsx1/5cYTrTurOtHlUtgZDpyd/OE8H8CmjPpexvxDOHBYLNY/Wr8B8aDWypVrxxgAAAAASUVORK5CYII=" alt="Verifikasi Keaslian">
+            <div class="cert-note-builtin">Sistem Autentikasi E-Learning HCM &bull; Tanggal: <span id="certDateVal">&mdash;</span></div>
+          </div>
+          <div class="cert-sig-builtin">
+            <div class="line"></div>
+            <div class="nm">Human Capital &amp; Corporate Legal</div>
+            <div class="rl">Corporate Learning &bull; PT PP (Persero) Tbk</div>
+          </div>
         </div>
       </div>
     </div>
