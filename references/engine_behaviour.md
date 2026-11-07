@@ -51,10 +51,13 @@ Everything on this page is implemented in `assets/shell.template.html` and confi
   Nama Lengkap, NIP/NRP, Jabatan, Divisi/Unit Kerja. Set `"askParticipantInfo": false` on the quiz
   slide to hide the card *and* skip the required Nama/NIP validation — use it for anonymous or
   refresher modules.
-- **Attempt limit is a soft limit.** All state lives in memory only (deliberately no
-  `localStorage`/`sessionStorage`), so a page reload resets `quizAttemptCount` to zero. Treat the
-  limit as a nudge, not as an anti-cheat control. If a deployment genuinely needs enforcement,
-  that requires a server-side check keyed on NIP — not a shell tweak.
+- **Attempt limit & progress persistence.** Learner progress (current slide, completed slides,
+  quiz score, quiz status, and `quizAttemptCount`) is persisted in `localStorage` keyed by course code
+  (`modul_pp_progress_<courseCode>`) so refreshing or reopening the module resumes the learner's session.
+  However, since this runs entirely client-side without a backend database, it serves as a structured
+  learning guardrail and self-paced convenience, not as an unhackable high-stakes proctoring control.
+  If an enterprise deployment genuinely requires legally binding credential enforcement, that requires
+  server-side grading and an LMS backend — not a standalone HTML client.
 
 ## 2b. Formative checkpoint block
 
@@ -69,7 +72,7 @@ Any slide may carry an optional `checkpoint` object; `renderCurrentSlide()` moun
 - Empty answers are rejected before grading (`isAnswered`) with an in-app notice, not a score of 0.
 - On a correct answer it calls `completeCurrentSlideTask()`: the slide is marked complete and the
   10-second gate releases early. It never blocks navigation — a wrong answer just invites a retry.
-- State is in memory only, like everything else: a reload resets checkpoints.
+- Checkpoint state is kept in-memory for formative review during the current slide session.
 
 ## 2c. Hotspot image (`hotspotImage`)
 
@@ -159,9 +162,9 @@ python3 <skill-root>/scripts/package_scorm.py \
 HTML (brace-matched, not regex-sniffed). Pass `--audio-dir ./audio` to bundle narration;
 `--assets-dir` bundles a logo folder.
 
-Note the design tension: the engine is in-memory only, while SCORM implies progress tracking. The
-SCORM calls report progress to the LMS, but a browser refresh still restarts the module unless the
-LMS itself reopens it with suspended data.
+The shell coordinates progress tracking with both local browser storage (`localStorage`) and
+SCORM calls (if embedded in an LMS): SCORM calls report progress and cmi completion to the LMS,
+while `localStorage` ensures standalone runs preserve completed units and scores across page refreshes.
 
 ## 5. Dev/review mode & Quiz Bypass
 

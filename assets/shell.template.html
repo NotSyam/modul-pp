@@ -1121,6 +1121,7 @@
           quizScore: state.quizScore,
           quizCompleted: state.quizCompleted,
           quizPassed: state.quizPassed,
+          quizAttemptCount: typeof state.quizAttemptCount === "number" ? state.quizAttemptCount : 0,
           isDarkMode: state.isDarkMode,
           updatedAt: Date.now()
         };
@@ -1162,6 +1163,9 @@
         if (typeof saved.quizScore === "number") state.quizScore = saved.quizScore;
         if (typeof saved.quizCompleted === "boolean") state.quizCompleted = saved.quizCompleted;
         if (typeof saved.quizPassed === "boolean") state.quizPassed = saved.quizPassed;
+        if (typeof saved.quizAttemptCount === "number" && saved.quizAttemptCount >= 0) {
+          state.quizAttemptCount = saved.quizAttemptCount;
+        }
         if (typeof saved.isDarkMode === "boolean" && (!COURSE.course || !COURSE.course.devMode)) {
           state.isDarkMode = saved.isDarkMode;
         }

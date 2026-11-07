@@ -293,7 +293,7 @@ Jika Anda memiliki data dalam format JSON (`kursus.json`):
 - URL webhook dapat dikonfigurasi per-slide (`webhookUrl` pada slide kuis, diprioritaskan) atau untuk seluruh modul (`course.webhookUrl`).
 - **Aman Beban Serentak**: Menggunakan `LockService.getScriptLock()` untuk menangani antrean pengiriman 50+ peserta secara bersamaan tanpa *race condition*.
 - **Mekanisme Upsert**: Jika NIP sudah tercatat, data baris lama **hanya ditimpa jika nilai baru lebih tinggi** dari nilai sebelumnya.
-- Seluruh state engine (skor, attempt, gate, identitas) disimpan **di memori saja** — tidak ada `localStorage`/`sessionStorage`. Refresh halaman akan mengulang state dari awal.
+- Progres belajar (slide selesai, skor, status kelulusan, identitas peserta, dan hitungan attempt) dipersistensikan secara lokal di browser melalui `localStorage` (dengan namespace kode modul). Peserta dapat me-refresh atau melanjutkan sesi belajar tanpa kehilangan progres. Karena berjalan di sisi klien (*client-side*), fitur ini dirancang sebagai panduan belajar mandiri (*self-paced learning*) terstruktur, bukan pengawasan ujian berkekuatan hukum tinggi (*proctored exam*).
 - Panduan setup lengkap: [`references/gas_webhook_setup.md`](references/gas_webhook_setup.md).
 
 ### 4. 🧩 21 Tipe Slide Interaktif

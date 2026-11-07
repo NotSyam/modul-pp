@@ -139,6 +139,10 @@ def fail(message):
     sys.exit(1)
 
 
+def warn(message):
+    print(f"WARN: {message}", file=sys.stderr)
+
+
 def load_json(path: Path):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -608,6 +612,14 @@ def main():
     # Ensure brand block exists
     if "brand" not in content:
         content["brand"] = {"preset": "ptpp"}
+
+    # Testing flag check
+    course_cfg = content.get("course") or {}
+    if course_cfg.get("bypassQuiz") is True or course_cfg.get("devMode") is True:
+        warn(
+            "TESTING FLAGS ACTIVE in content.json! (bypassQuiz: True / devMode: True). "
+            "Anyone viewing this module can bypass quiz gates. Ensure this is disabled before production release."
+        )
 
     # Make the logo self-contained before anything reads course.logo.
     logo_info = resolve_logo(content, content_path.parent, args)

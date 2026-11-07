@@ -697,6 +697,18 @@ def semantic_warnings(content, content_path: Path):
             else:
                 seen_bodies[norm_body] = i
 
+    # Testing flag leakage check (bypassQuiz / devMode)
+    if course.get("bypassQuiz") is True:
+        warnings.append(
+            "course.bypassQuiz is TRUE! Anyone can bypass the quiz and unlock certificates. "
+            "Disable before publishing to production."
+        )
+    if course.get("devMode") is True:
+        warnings.append(
+            "course.devMode is TRUE! Debug/testing bypasses are active. "
+            "Disable before publishing to production."
+        )
+
     # Certificate configuration
     cert = course.get("certificate") if isinstance(course.get("certificate"), dict) else {}
     template = cert.get("template")

@@ -1,6 +1,6 @@
 ---
 name: modul-pp
-description: Transform raw training documents, SOPs, syllabi, or slide breakdowns into production-ready, self-contained interactive e-learning modules (single HTML file) with 21 slide types, slide gate timers, anti-spam quiz evaluations, Google Sheets sync, and certificate printing. Use when the user asks to build an interactive e-learning module, or types /modul-pp (aliases /modul, /elearning).
+description: Transform raw training documents, SOPs, syllabi, or slide breakdowns into production-ready, self-contained interactive e-learning modules (single HTML file) with 21 slide types, slide gate timers, gated quiz evaluations with attempt limits, Google Sheets sync, and certificate printing. Use when the user asks to build an interactive e-learning module, or types /modul-pp (aliases /modul, /elearning).
 ---
 
 # Modul PP — Interactive E-Learning Module Builder Skill (/modul-pp)
@@ -11,7 +11,7 @@ slide-by-slide content breakdown + optional reference documents.
 ## What this skill produces
 
 A **single `.html` file** that runs in any modern browser (open via `file://`, no server needed),
-roughly 250–280 KB. Each module includes:
+roughly 350–370 KB. Each module includes:
 
 - Top player bar (logo, course code, effective date, Terminologi / Tenggat / Petunjuk modals, theme
   toggle, fullscreen) + collapsible off-canvas mobile sidebar (Menu / Transkrip / Lampiran) with a
@@ -34,6 +34,7 @@ roughly 250–280 KB. Each module includes:
 - Slide gate timer, Google Sheets webhook sync, SCORM runtime, printable A4 certificate (built-in or
   custom template), pan/zoom tree canvas with role filter + hotspot modal
 - Tactile Web Audio tones, Canvas confetti, WCAG 2.2 AA keyboard nav + ARIA roles
+- **Network connectivity**: Runs locally via `file://` or static host, but connects to CDN on initial load for Tailwind CSS, Google Fonts, Material Symbols, and Canvas Confetti. Air-gapped intranet deployments require local asset caching.
 
 ## Skill architecture
 
@@ -395,8 +396,8 @@ Read it before answering "does the module do X?" and before editing the shell.
 
 Two things worth knowing without opening that file:
 
-- **Local progress persistence**: Slide progress, completed units, participant identity, and passed quiz state are safely persisted in `localStorage` keyed by `course.code` (with graceful fallback if sandboxed or unavailable). A page refresh resumes the learner at their current slide without losing completed gates. Quiz attempt count is kept per session to preserve fair retry limits.
-- **Production Gating by Default**: `course.devMode` defaults to `false`. In production, gating countdown timers are strictly enforced and `#cert-preview` is locked. For draft review and testing, set `"devMode": true` to unlock slide hopping and certificate inspection.
+- **Local progress persistence**: Slide progress, completed units, participant identity, passed quiz state, and `quizAttemptCount` are safely persisted in `localStorage` keyed by `course.code` (with graceful fallback if sandboxed or unavailable). A page refresh resumes the learner at their current slide without losing completed gates or resetting fair attempt limits.
+- **Production Gating by Default**: `course.devMode` defaults to `false`. In production, gating countdown timers are strictly enforced and `#cert-preview` is locked. For draft review and testing, set `"devMode": true` to unlock slide hopping and certificate inspection. `build_module.py` emits a warning if testing flags are left enabled.
 - **Webhook sync fires on pass OR on the final failed attempt** (status `TIDAK LULUS (MAX ATTEMPT)`);
   intermediate failed attempts are not synced.
 
@@ -404,8 +405,8 @@ Two things worth knowing without opening that file:
 
 Only the `quiz` slide is **summative**: it sets `quizScore`/`quizCompleted`, enforces the attempt
 limit, unlocks the certificate and triggers the webhook. Every other interactive type
-(`scenarioPicker`, `treeCanvas`, `hotspotImage`, a `checkpoint` block, and the planned
-`branchingScenario` / `dragDropSet`) is **formative**: it gives feedback and local progress, and must
+(`scenarioPicker`, `treeCanvas`, `hotspotImage`, a `checkpoint` block, `branchingScenario`, and
+`dragDropSet`) is **formative**: it gives feedback and local progress, and must
 never write to the score, the attempt counter, or the webhook payload. Keep that boundary when adding
 or editing renderers — it is what keeps "practice" safe to fail.
 
@@ -467,7 +468,7 @@ or editing renderers — it is what keeps "practice" safe to fail.
 
 ## Output format
 
-Final deliverable: one self-contained `.html` file at the `--output` path, roughly 250–280 KB. The
+Final deliverable: one self-contained `.html` file at the `--output` path, roughly 350–370 KB. The
 user can open it via `file://`, host it on any static server, package it as SCORM
 (`scripts/package_scorm.py`), embed it via `<iframe>`, or print certificates to PDF.
 
@@ -536,8 +537,8 @@ rules. The button only appears once the quiz is passed. See "Custom certificate 
 
 **Can the module be embedded in an LMS?**
 Yes — single self-contained HTML file. Embed via `<iframe>`, or ship it as SCORM with
-`scripts/package_scorm.py`. Progress is **not** persisted across browser refreshes: state is
-in-memory only by design.
+`scripts/package_scorm.py`. For standalone web hosting, progress is persisted locally via `localStorage`
+(keyed by course code), allowing learners to refresh without losing completed units or score state.
 
 **How do I update content after the first build?**
 Edit `content.json`, re-run `build_module.py`, then re-run the verification gate with `--content` so
@@ -575,7 +576,7 @@ To ensure modules meet strict corporate quality and black-box external audit sta
 - Don't write slide content into `assets/shell.template.html`. Content lives in `content.json`.
 - Don't recreate or look for `scripts/build_shell_template.py` — the shell is canonical.
 - Don't use a multi-file structure (separate JS/CSS); the shell is intentionally single-file.
-- Don't add `localStorage` / `sessionStorage` persistence without an explicit user decision.
+- Don't add external server or database runtime dependencies; keep modules client-side self-contained.
 - Don't render slides server-side — everything runs client-side.
 - Don't skip validation, the verification gate, or `self_check.py` after shell edits.
 - Don't hardcode a machine path in commands or scripts — every script resolves the skill root
