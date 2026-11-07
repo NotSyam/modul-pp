@@ -106,13 +106,13 @@ PAGE_SIZES = {
 # course.certificate.labels so non-Indonesian modules do not print Indonesian
 # boilerplate.
 DEFAULT_CERT_LABELS = {
-    "kicker": "SERTIFIKAT KELULUSAN RESMI E-LEARNING",
-    "presentedTo": "Diberikan secara sah kepada:",
+    "kicker": "SERTIFIKAT KELULUSAN E-LEARNING",
+    "presentedTo": "Diberikan kepada:",
     "passNote": "Telah menyelesaikan seluruh modul dan dinyatakan <strong>LULUS UJI PEMAHAMAN (KOMPETEN)</strong>",
     "scoreLabel": "Skor Pemahaman",
     "passThresholdNote": "Lulus Evaluasi Pemahaman (Ambang Batas {passingScore}%)",
     "dateLabel": "Tanggal Kelulusan:",
-    "footerNote": "Sistem Autentikasi E-Learning HCM",
+    "footerNote": "Simulasi E-Learning Mandiri",
 }
 
 # Build-time tokens available inside a custom certificate template ({{token}}).
@@ -386,6 +386,14 @@ def build_placeholder_map(content: dict, brand: dict, cert: dict) -> dict:
     course = content.get("course") or {}
     labels = cert["labels"]
     passing = course.get("passingScore", 80)
+    slides = content.get("slides") or content.get("units") or []
+    glossary = content.get("glossary") or []
+    is_staging = course.get("staging", True)
+    staging_badge = (
+        '<span class="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-amber-500/20 '
+        'text-amber-600 dark:text-amber-400 border border-amber-500/30 tracking-wider">STAGING PROTOTYPE</span>'
+        if is_staging else ""
+    )
 
     return {
         "__BUILD_VERSION__":         BUILD_VERSION,
@@ -398,6 +406,9 @@ def build_placeholder_map(content: dict, brand: dict, cert: dict) -> dict:
         "__COURSE_CODE2__":          course.get("code", ""),
         "__COURSE_RESOURCES_DESC__": course.get("resourcesDesc", ""),
         "__GLOSSARY_SEARCH_PLACEHOLDER__": course.get("glossarySearchPlaceholder", "Cari istilah..."),
+        "__COURSE_TOTAL_SLIDES__":   str(len(slides)),
+        "__COURSE_TOTAL_GLOSSARY__": str(len(glossary)),
+        "__COURSE_STAGE_BADGE__":    staging_badge,
 
         # Business data the engine reads at runtime.
         "__COURSE_PASSING_SCORE__":  str(passing),

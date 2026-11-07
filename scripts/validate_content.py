@@ -667,6 +667,36 @@ def semantic_warnings(content, content_path: Path):
                   "will be empty for those slides."
             )
 
+    # Effective date sanity check (prevent future year drift)
+    eff_date = str(course.get("effectiveDate") or "")
+    year_match = re.search(r"\b(20\d{2})\b", eff_date)
+    if year_match:
+        import datetime
+        eff_year = int(year_match.group(1))
+        current_year = datetime.datetime.now().year
+        if eff_year > current_year:
+            warnings.append(
+                f"course.effectiveDate contains future year {eff_year} (current year is {current_year}). "
+                "Ensure this is not a hallucinated date (e.g. from template placeholder drift)."
+            )
+
+    # Anti-slop duplicate slide content check
+    seen_bodies = {}
+    for i, slide in enumerate(slides):
+        if not isinstance(slide, dict):
+            continue
+        body = slide.get("body") or slide.get("description")
+        if isinstance(body, str) and len(body.strip()) > 40:
+            norm_body = re.sub(r"\s+", " ", body.strip().lower())
+            if norm_body in seen_bodies:
+                prev_idx = seen_bodies[norm_body]
+                warnings.append(
+                    f"slides[{i}] has identical body/description text to slides[{prev_idx}]. "
+                    "Ensure content is not copy-pasted boilerplate across slides."
+                )
+            else:
+                seen_bodies[norm_body] = i
+
     # Certificate configuration
     cert = course.get("certificate") if isinstance(course.get("certificate"), dict) else {}
     template = cert.get("template")

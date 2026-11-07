@@ -561,6 +561,15 @@ the stale-build check runs. The shell does not change between content updates.
   engine references was renamed or removed.
 - **Verification gate fails on "COURSE literal does not match"** — the HTML is stale; rebuild.
 
+## Editorial Rigor & Anti-Slop Rules
+
+To ensure modules meet strict corporate quality and black-box external audit standards:
+- **No Hardcoded Metadata in Shell Chrome**: Never hardcode slide counts, terminologi counts, or document references into `shell.template.html`. Dynamic placeholders (`__COURSE_TOTAL_SLIDES__`, `__COURSE_TOTAL_GLOSSARY__`, `__COURSE_STAGE_BADGE__`) ensure every course reflects its actual JSON content.
+- **Staging Protection by Default**: Single-file outputs contain `<meta name="robots" content="noindex, nofollow" />` and default to a `STAGING PROTOTYPE` topbar badge (unless `course.staging: false` is explicitly set).
+- **No Copy-Pasted Descriptions**: When presenting multiple stages, modules, or cards, each item must carry unique, substantive domain descriptions. Identical boilerplate repeated across cards/slides will be flagged by `validate_content.py`.
+- **Date Sanity**: `course.effectiveDate` must reflect real historical or current dates. Dates projecting beyond current year + 1 are flagged as hallucination/drift.
+- **Simulation Disclaimer on Certificates**: Certificates generated in standalone client-side simulations indicate `SIMULASI MANDIRI` with a disclaimer footnote to prevent false claims of official corporate credentials before deployment to internal LMS.
+
 ## What NOT to do
 
 - Don't write slide content into `assets/shell.template.html`. Content lives in `content.json`.

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Program Orientasi Karyawan Baru</title>
   
   <!-- Tailwind CSS CDN -->
@@ -354,6 +355,7 @@
               AKN/HR/ONB-014 REV-1
             </span>
             <span class="text-[11px] text-slate-500 dark:text-slate-400 hidden lg:inline">Berlaku: 1 Feb 2026</span>
+            <span class="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 tracking-wider">STAGING PROTOTYPE</span>
           </div>
           <h1 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 truncate leading-tight tracking-tight" id="courseTitle">
             Program Orientasi Karyawan Baru
@@ -375,7 +377,7 @@
       <button onclick="openTerminologiModal()" class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg bg-brand-primary/10 hover:bg-brand-primary/20 text-brand-primary dark:text-brand-lightBlue border border-brand-primary/30 text-[11px] font-bold transition-all cursor-pointer" title="Kamus Terminologi & Definisi SOP (Poin 4)">
         <span class="material-symbols-outlined text-sm shrink-0">menu_book</span>
         <span class="hidden md:inline">Terminologi</span>
-        <span id="terminologiBadgeCount" class="px-1.5 py-0.2 bg-brand-primary text-white text-[9px] rounded-full font-mono font-bold">18</span>
+        <span id="terminologiBadgeCount" class="px-1.5 py-0.2 bg-brand-primary text-white text-[9px] rounded-full font-mono font-bold">5</span>
       </button>
 
       <!-- PETUNJUK / HINT NAVIGASI -->
@@ -460,11 +462,11 @@
             <p class="text-[10px] text-slate-500">Program Orientasi Karyawan Baru</p>
           </div>
           <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-brand-darkSubtle border border-slate-200 dark:border-brand-darkBorder">
-            <p class="font-bold text-slate-800 dark:text-white">AKN/HR/ONB-014 REV-1</p>
-            <p class="text-[10px] text-slate-500">SOP Pengawasan & Pengendalian Proyek Konstruksi</p>
+            <p class="font-bold text-slate-800 dark:text-white">Informasi Dokumen</p>
+            <p class="text-[10px] text-slate-500">Berlaku Efektif: Berlaku: 1 Feb 2026</p>
           </div>
           <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-brand-darkSubtle border border-slate-200 dark:border-brand-darkBorder">
-            <p class="font-bold text-slate-800 dark:text-white">11 Formulir Standar (Lamp. 1-11)</p>
+            <p class="font-bold text-slate-800 dark:text-white">Lampiran & Formulir Kendali</p>
             <p class="text-[10px] text-slate-500"></p>
           </div>
         </div>
@@ -586,7 +588,7 @@
 
       <!-- Slide Counter -->
       <div class="hidden lg:flex items-center text-xs font-semibold text-slate-500 dark:text-slate-400 px-2 font-mono">
-        <span id="slideCounterText">Slide 1 / 12</span>
+        <span id="slideCounterText">Slide 1 / 21</span>
       </div>
 
       <!-- Navigation Prev Button -->
@@ -671,7 +673,7 @@
 
     <!-- Modal Footer -->
     <footer class="p-3 px-5 border-t border-slate-200 dark:border-brand-darkBorder bg-slate-50 dark:bg-brand-darkSubtle flex items-center justify-between">
-      <span id="terminologiFooterCount" class="text-xs text-slate-500 font-medium">Total 18 Terminologi Resmi Poin 4 WI</span>
+      <span id="terminologiFooterCount" class="text-xs text-slate-500 font-medium">Total 5 Terminologi Dokumen SOP</span>
       <button onclick="closeTerminologiModal()" class="px-4 py-1.5 rounded-lg bg-brand-primary hover:bg-brand-primaryHover text-white text-xs font-semibold cursor-pointer">
         Tutup
       </button>
@@ -982,8 +984,8 @@
         </div>
         
         <div>
-          <div class="cert-h1-builtin">SERTIFIKAT KELULUSAN RESMI E-LEARNING</div>
-          <div class="cert-sub-builtin">CERTIFICATE OF COMPLETION &nbsp;&middot;&nbsp; Diberikan secara sah kepada:</div>
+          <div class="cert-h1-builtin">SERTIFIKAT KELULUSAN E-LEARNING</div>
+          <div class="cert-sub-builtin">CERTIFICATE OF COMPLETION &nbsp;&middot;&nbsp; Diberikan kepada:</div>
           <div class="cert-name-builtin" id="certRecipientName">Nama Peserta</div>
           <div class="cert-nip-builtin" id="certRecipientNIP">NIP: - &bull; PT PP (Persero) Tbk</div>
           <div class="cert-hair-builtin"></div>
@@ -1002,7 +1004,7 @@
           <div class="cert-mid-builtin">
             <div class="id">NO. <span id="certNumberLabel">No. Reg: &mdash;</span></div>
             <img class="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjQAAAI0AQMAAAAwRSFAAAAABlBMVEXw+P8LJUX0pDeiAAAAAXRSTlMAQObYZgAAA1tJREFUeNrtnVFq5TAMRcVswPvfpXfg6WsT+175vdiGGQaGY/qRpsmhCIQt6UqJYLFYf2+V1tfrul53vv5yXdf4+fV1p11/+rpvL8avP/TfwIHzP3G+PaVflDYcStzn5053tNdF9RexMxw4n/yrXJtX36Qu56rR/Ws89vNMTS9iZzhwVv51u9V1bqy3u91OlzY4/AsOnDP/qvf21OOvNpxONzX8Cw6c4/jrdq6+W/Vn9AyZX8TOcOBs5A+PfsgfwoFztCxh6Nn4kdnoexx2hgNnx616vr0fBSMkQT+cq/9oOIad4cBZ71lVnKg1C7LE9YaX4V9w4GzEXykP3yvIVkoulqjv/kh+Aw6c/f3LCs1T5Su9dcdi2BkOnMcUfWnJ3T6Vw8bzt14RO8OB8/F8WHPMlRWG+liTMlkhPw8Hzkn9y+Ms9TvLaVTJMXI+hAPnMf4ah0C9Fp3hcKVi/Sn3K9gZDpyPxS+tc43gq1n8pcGXZvKxMxw4i/irmWxeHS3l51N/CnaGA2ez/tV1Gt2hhlpDdB16mEQ/DwfOWhw1VbVSKXmk4ktLQinyG3DgrOvLLbd6aXZRNRvpYfwLDpxl/KUl46zslVZK03gU9Idw4OyJ50tzSYbd1ykcEZF7wbAzHDiPIwLsNDhf13hbBWP/ggNnX8KRUoXpoGhaX/S9cOCc6OctyPI6sg3oaOgP4cA5mx9l+g3vAksNXybeuErM2BkOnKf8Rhtip9CExiyO0mANO8OBs+VfzTPw7nopB5LkHNgZDpyn5GExCb0NEY1IAkXsDAfOUX1ZG76SqCMrfps9f58SsTMcOE/9yzqhV5Xz2racJ2YX9FFw4GwN35jTF/YtFem7zBsZ/gUHzjJFX6d0ve9c3ddSXYzzIRw4m1mONJ43Tb+xGjTxFxw4savfiLAPD40jorZYThPbmM8GB84y/rL0xfTB5TEHW8tkEoJhZzhwDr4FluRP2ln5tksFO8OBs5x/6LM15u/G2sQbG5qNneHAWX2/cupAeZu9z19XYf+CA2fn+8s+IsD6wqZvLtv0AOwMB87G981j7v3XtKHnPZh/CAfO2f4VNnMjz9CewzHmH8KBsx1/5cYTrTurOtHlUtgZDpyd/OE8H8CmjPpexvxDOHBYLNY/Wr8B8aDWypVrxxgAAAAASUVORK5CYII=" alt="Verifikasi Keaslian">
-            <div class="cert-note-builtin">Sistem Autentikasi E-Learning HCM &bull; Tanggal: <span id="certDateVal">&mdash;</span></div>
+            <div class="cert-note-builtin">Simulasi E-Learning Mandiri &bull; Tanggal: <span id="certDateVal">&mdash;</span></div>
           </div>
           <div class="cert-sig-builtin">
             <div class="line"></div>
@@ -6184,7 +6186,7 @@
         const badge = document.getElementById("terminologiBadgeCount");
         if (badge) badge.textContent = COURSE.glossary.length;
         const footer = document.getElementById("terminologiFooterCount");
-        if (footer) footer.textContent = `Total ${COURSE.glossary.length} Terminologi Resmi Poin 4 WI`;
+        if (footer) footer.textContent = `Total ${COURSE.glossary.length} Terminologi Dokumen SOP`;
       }
     }
 
