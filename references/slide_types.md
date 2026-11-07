@@ -839,6 +839,6 @@ Menampilkan kuis evaluasi pemahaman (Level 2). Mendukung MCQ, True/False, dan Fi
 
 #### Behaviour notes:
 - Pengiriman ke webhook terjadi bila percobaan **lulus**, ATAU bila percobaan gagal **terakhir** sudah terpakai (attempt mencapai `course.maxQuizAttempts`). Condition engine: `state.quizPassed || state.quizAttemptCount >= maxQuizAttempts`. Percobaan gagal sebelum limit tidak dikirim; attempt terakhir yang gagal dikirim dengan `status` `"TIDAK LULUS (MAX ATTEMPT)"` (lulus → `"LULUS (>= N)"`, gagal non-final → `"REMEDIAL (< N)"`).
-- Seluruh state kuis (`state.quizAttemptCount`, skor, identitas) disimpan **di memori saja** — tidak ada `localStorage`/`sessionStorage`; refresh halaman mengulang state.
+- State kuis (`state.quizAttemptCount`, skor, kelulusan, dan identitas) dipersistensikan secara lokal di browser via `localStorage` (dengan namespace kode modul) sehingga me-refresh halaman tidak menghapus progres atau mereset batas percobaan.
 - Slide `quiz` dan `summaryCertificate` otomatis **melewati** slide gate timer reguler karena memiliki gate evaluasinya sendiri.
 - Sertifikat pada `summaryCertificate` hanya terbuka bila `state.quizCompleted && state.quizScore >= COURSE.course.passingScore`.

@@ -259,6 +259,7 @@ whenever you edit `assets/shell.template.html` or any script**, before touching 
 - Number of slides + a quick type breakdown
 - Verification-gate results and any non-fatal warnings to ignore
 - Which certificate identity/labels were used, and whether a custom template was applied
+- Testing flag status: explicitly report whether `course.devMode` or `course.bypassQuiz` is active; if active, warn the user that quiz gates and certificate locks are currently bypassed and must be set to `false` prior to production release
 - Next steps: attach real logo + audio files, iterate by editing `content.json` and re-running
   `build_module.py`
 
@@ -570,6 +571,14 @@ To ensure modules meet strict corporate quality and black-box external audit sta
 - **No Copy-Pasted Descriptions**: When presenting multiple stages, modules, or cards, each item must carry unique, substantive domain descriptions. Identical boilerplate repeated across cards/slides will be flagged by `validate_content.py`.
 - **Date Sanity**: `course.effectiveDate` must reflect real historical or current dates. Dates projecting beyond current year + 1 are flagged as hallucination/drift.
 - **Simulation Disclaimer on Certificates**: Certificates generated in standalone client-side simulations indicate `SIMULASI MANDIRI` with a disclaimer footnote to prevent false claims of official corporate credentials before deployment to internal LMS.
+
+## Client-Side Security & Architectural Boundaries
+
+Modul PP builds standalone single-file HTML client applications without a backend. Authors and users must acknowledge the following inherent threat model:
+- **Client-Side Answer Keys**: Quiz question structures and answer keys (`correctIndex`, `acceptedAnswers`, etc.) reside in the browser JavaScript bundle (`COURSE.slides`). Anyone with basic technical literacy can inspect keys in DevTools.
+- **Client-Side Storage**: Progress, passing status, and `quizAttemptCount` reside in `localStorage`. They provide reload resilience and self-paced convenience, not tamper-proof exam proctoring. They can be edited or cleared via DevTools or Private Browsing.
+- **Open Webhook Submissions**: Google Sheets webhook integration uses browser `fetch()` POST requests without cryptographic HMAC signatures; it relies on organizational trust.
+- **Appropriate Scope**: Use for self-paced training, SOP socialization, formative learning, and employee onboarding. Standalone client-side modules must never be represented as high-stakes proctored certification examinations.
 
 ## What NOT to do
 

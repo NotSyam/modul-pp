@@ -1,6 +1,6 @@
 # Modul PP 🚀
 > **AI-Powered Interactive E-Learning Module Builder & Skill**  
-> Ubah dokumen materi, SOP, silabus, dan slide statis menjadi aplikasi web e-learning interaktif mandiri (*single-file HTML*) berstandar industri dengan 21 tipe slide, kuis anti-spam, timer gating, dan sinkronisasi Google Sheets.
+> Ubah dokumen materi, SOP, silabus, dan slide statis menjadi aplikasi web e-learning interaktif mandiri (*single-file HTML*) berstandar industri dengan 21 tipe slide, kuis berbatas percobaan (attempt limits), timer gating, dan sinkronisasi Google Sheets.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-WI_Pelatihan_Rev--2-success?style=for-the-badge&logo=github)](https://notsyam.github.io/wi-pelatihan-rev2/)
 [![HTML5](https://img.shields.io/badge/HTML5-Single--File-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
@@ -21,7 +21,7 @@ Lihat contoh modul e-learning interaktif nyata yang diproduksi menggunakan engin
 > - 🌲 **Interactive Flowchart Canvas**: Diagram pohon alur kerja dengan pan/zoom, filter peran (*Role Filter*), dan hotspot interaktif.
 > - 📝 **Native In-App Quiz**: Uji pemahaman dengan kartu identitas peserta, acak opsi, dan batas maksimal 5 kali percobaan.
 > - 🎓 **Official Printable Certificate**: Membuka gembok sertifikat resmi berformat cetak A4 landscape ke PDF jika lulus kuis ($\ge 80$).
-> - 📊 **Real-time Webhook Sync**: Pengiriman skor otomatis ke Google Sheets dengan pencegahan data spam dan upsert nilai tertinggi.
+> - 📊 **Real-time Webhook Sync**: Pengiriman skor otomatis ke Google Sheets dengan penyaringan percobaan menengah dan upsert nilai tertinggi.
 
 ---
 
@@ -277,7 +277,7 @@ Jika Anda memiliki data dalam format JSON (`kursus.json`):
 - Dilengkapi efek *unlock chime* (Web Audio) dan animasi pulse glow (`btn-next-ready`) saat waktu tuntas.
 - **Dikecualikan** untuk slide kuis & sertifikat, serta slide yang sudah tuntas dipelajari (tidak dikunci ulang saat dibuka kembali).
 
-### 2. 📝 Native In-App Quiz & Anti-Spam (Maksimal 5 Attempt)
+### 2. 📝 Native In-App Quiz & Batas Percobaan (Maksimal 5 Attempt)
 - **Kartu identitas peserta tampil di halaman kuis** (bukan di halaman sertifikat): Nama Lengkap, NIP/NRP, Jabatan, dan Divisi/Unit Kerja.
 - Mendukung **7 tipe soal** — MCQ, Benar/Salah, Isian Singkat, **multiple-response, ordering, matching, numeric** — dengan pengacakan opsi/urutan, toleransi angka, dan pembahasan kunci jawaban.
 - **`checkpoint` (formatif, di slide mana pun)**: blok latihan opsional di bawah materi yang langsung diperiksa, boleh dicoba lagi, **tidak** menambah skor/attempt dan tidak mengirim webhook; jawaban benar hanya mempercepat terbukanya gate slide. Lihat `references/slide_types.md` §11b + `references/interactivity_patterns.md`.
@@ -355,6 +355,24 @@ Kontras **tidak** dijamin WCAG AA menyeluruh: `scripts/build_module.py` mencetak
   ```
 - **Badge Dev/Review (`#previewModeBadge`)**: mengubah `COURSE.course.devMode` saat runtime — `false` untuk navigasi produksi yang tergerbang, `true` untuk navigasi bebas saat review/QA.
 - **Verification Gate**: `tools/verify_module.py` memvalidasi DOM, sintaks JS, DOM id wajib (termasuk kontrak sertifikat), registri `SLIDE_RENDERERS`, placeholder build, dan injeksi `COURSE` sebelum modul dinyatakan lolos.
+
+---
+
+### 7. 🛡️ Batasan Keamanan & Model Ancaman (Client-Side Architecture)
+
+Modul PP dirancang sebagai **aplikasi web statis berkas tunggal (JAMstack/Serverless)** tanpa ketergantungan server runtime. Oleh karena itu, pengembang dan administrator wajib memahami batasan keamanan bawaan arsitektur client-side:
+
+1. **Kunci Jawaban di Sisi Klien (*Client-Side Answer Key*)**:
+   - Struktur soal kuis dan properti jawaban benar (`correctIndex`, `correctBool`, `acceptedAnswers`) tersimpan di dalam objek JavaScript browser (`COURSE.slides`).
+   - Pengguna dengan pengetahuan teknis dasar dapat membaca kunci jawaban secara langsung melalui Browser DevTools (*Inspect Element* / *Console*).
+2. **Persistensi Lokal (*localStorage Tampering*)**:
+   - Progres kelulusan (`state.quizPassed`), nilai skor (`state.quizScore`), dan riwayat percobaan (`state.quizAttemptCount`) disimpan di `localStorage` peramban lokal.
+   - Nilai ini dapat disunting, dipalsukan, atau dihapus oleh pengguna melalui menu *DevTools > Application > Local Storage* atau dengan membuka browser dalam mode Penyamaran (*Incognito/Private*).
+3. **Endpoint Webhook Google Apps Script (GAS) Terbuka**:
+   - Pengiriman hasil kuis ke Google Sheets dilakukan melalui request HTTP POST `fetch()` standar tanpa tanda tangan digital rahasia (*HMAC signature*). Siapa pun yang mengetahui URL Webhook dapat mengirim payload data secara langsung ke spreadsheet.
+4. **Peruntukan & Rekomendasi Deployment**:
+   - ✅ **Sangat Cocok**: *Self-paced microlearning*, sosialisasi standar SOP/WI internal, pelatihan induksi karyawan, latihan pemahaman mandiri, dan penyegaran materi berkala.
+   - ⚠️ **Tidak Direkomendasikan**: Ujian sertifikasi resmi yang berkekuatan hukum (*high-stakes certification*), seleksi karier/promosi formal berisiko hukum tinggi, atau evaluasi kepatuhan yudisial tanpa pengawasan langsung (*proctoring*) dan verifikasi server-side LMS terpusat.
 
 ---
 
